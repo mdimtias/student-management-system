@@ -23,7 +23,7 @@ const RegisterPage = () => {
     <div className="h-[800px] flex justify-center items-center">
       <div className="bg-slate-100 rounded-xl boxColor">
         <div className="text-xl text-center pt-7 pl-7 pr-7">
-          <h2>Register Now</h2>
+          <h2>Register Now!</h2>
         </div>
         <div className="p-7 text-left">
           <form onSubmit={handleSubmit(handleLoging)}>
