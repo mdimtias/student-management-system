@@ -15,7 +15,7 @@ const courseCard = ({ course }: courseDet) => {
     const { title,lecture,people ,image} = course
     return (
         <div>
-            <div className="overflow-hidden rounded-lg shadow-lg h-96 w-96 transition duration-300 group transform hover:-translate-y-2 ">
+            <div className="mb-4 overflow-hidden rounded-lg shadow-lg h-96 w-96 transition duration-300 group transform hover:-translate-y-2 ">
                 <img alt="Placeholder" className="block w-full h-52" src={image} />
                 <header className="flex items-center justify-between leading-tight p-2 md:p-4">
                     <p className="ml-2 text-lg">

@@ -14,7 +14,7 @@ type aboutType = {
 const AboutUsCard = ({about} :aboutType ) => {
     const {name, designation,linkedIn,github, profilePic} = about
     return (
-        <div className="transition duration-300 group transform hover:-translate-y-2 hover:shadow-2xl relative h-96 w-9/12 flex items-end justify-start text-left bg-cover bg-center" style={
+        <div className="transition duration-300 group transform hover:-translate-y-2 hover:shadow-2xl relative h-96 flex items-end justify-start text-left bg-cover bg-center" style={
             {
                 backgroundImage :   `url(${profilePic})`,
             }
