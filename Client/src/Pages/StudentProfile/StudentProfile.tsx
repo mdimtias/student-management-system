@@ -2,7 +2,7 @@ import React from 'react';
 
 const StudentProfile = () => {
     return (
-        <div className='flex flex-col md:flex-row my-5'> 
+        <div className='flex flex-col md:flex-row my-5 mx-2 md:mx-0'> 
             <div className='w-full md:flex md:flex-col  md:w-1/5 p-5 md:ml-10 md:mr-5 shadow-2xl hidden rounded-2xl h-fit	'>
                 <img src="https://img.freepik.com/premium-vector/man-profile-cartoon_18591-58482.jpg?w=740" alt="" />
                 <h1 className='font-semibold text-center'>Will byers</h1>
