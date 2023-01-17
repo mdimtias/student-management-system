@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import AuthProvider from './contexts/AuthProvider/AuthProvider';
+import 'react-multi-carousel/lib/styles.css';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
