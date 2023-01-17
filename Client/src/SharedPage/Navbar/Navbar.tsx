@@ -17,7 +17,7 @@ const Navbar = () => {
     //     }
     // </>
     return (
-        <div className='w-full fixed border-b md:px-4 py-2 bg-white shadow-md'>
+        <div className='w-full border-b md:px-4 py-2 bg-white shadow-md'>
             <div className="flex items-center justify-center w-full ">
 
                 {/* burger menu button start */}
@@ -44,13 +44,13 @@ const Navbar = () => {
                         <Link to='/' className="cursor-pointer text-sm font-medium  text-gray-900">Home</Link>
                     </li>
                     <li className=' py-2 px-5 text-black hover:bg-blue-100  rounded-2xl  font-semibold ease-in-out duration-300'>
-                        <Link to='products' className="cursor-pointer text-sm font-medium text-gray-900">Calender</Link>
+                        <Link to='/student-profile' className="cursor-pointer text-sm font-medium text-gray-900">Student</Link>
                     </li>
                     <li className=' py-2 px-5 text-black hover:bg-blue-100  rounded-2xl  font-semibold ease-in-out duration-300'>
-                        <Link to='service' className="cursor-pointer text-sm font-medium text-gray-900">Resources</Link>
+                        <Link to='/courses' className="cursor-pointer text-sm font-medium text-gray-900">Course</Link>
                     </li >
                     <li className=' py-2 px-5 text-black hover:bg-blue-100  rounded-2xl  font-semibold ease-in-out duration-300'>
-                        <Link to='contracts' className="cursor-pointer text-sm font-medium text-gray-900">Contract Us</Link>
+                        <Link to='/contact' className="cursor-pointer text-sm font-medium text-gray-900">Contract Us</Link>
                     </li>
 
                 </ul>
