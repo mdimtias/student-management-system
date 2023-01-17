@@ -3,7 +3,7 @@ import React from 'react';
 const WhyChooseUs = () => {
     return (
         <div className='pt-20'>
-            <div className=" w-full pt-16 bg-no-repeat bg-[url('https://jthemes.net/themes/html/genius-course/assets/img/banner/wc-1.jpg')]">
+            <div className=" w-full pt-16 md:bg-no-repeat bg-[url('https://jthemes.net/themes/html/genius-course/assets/img/banner/wc-1.jpg')]">
                 <h1 className='text-5xl text-white font-bold text-center pb-10'>Why choose us?</h1>
 
                 <div className='flex flex-col md:flex-row justify-center  items-center'>
