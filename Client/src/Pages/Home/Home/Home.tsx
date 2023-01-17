@@ -1,10 +1,16 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import AboutUs from '../../AboutUs/AboutUs';
+import LatestNews from '../../LatestNews/LatestNews';
+import WhyChooseUs from './WhyChooseUs';
 
 const Home = () => {
     return (
-        <div>
-            <h1 className='font-bold text-2xl'>Home</h1>
-        </div>
+        <>
+            <LatestNews></LatestNews>
+            <AboutUs></AboutUs>
+            <WhyChooseUs></WhyChooseUs>
+        </>
     );
 };
 

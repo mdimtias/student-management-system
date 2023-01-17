@@ -1,0 +1,17 @@
+.wrap-image{
+    height: 200px;
+    overflow: hidden;
+    border-radius: 15px;
+    border:1px solid transparent;
+}
+.wrap-image img{
+    transition: 0.5s ease-in;
+    height:200px;
+    width:100%;
+}
+.wrap-image img:hover{
+    -webkit-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2);
+    cursor: pointer;
+    border:1px solid transparent;
+}

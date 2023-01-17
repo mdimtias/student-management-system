@@ -1,8 +1,14 @@
 import { createBrowserRouter } from "react-router-dom";
+import ContactForm from "../component/contactForm/ContactForm";
+import Skills from "../component/skills/Skills";
 import Main from "../Layout/Main/Main";
+import AboutUs from "../Pages/AboutUs/AboutUs";
+import ContactForm from "../Pages/contactForm/ContactForm";
+import Courses from "../Pages/Courses/Courses";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Home from "../Pages/Home/Home/Home";
-import WhyChooseUs from "../Pages/Home/Home/WhyChooseUs";
+import LogIn from "../Pages/LogIn/LogIn/LogIn";
+import Register from "../Pages/LogIn/Register/Register";
 import StudentProfile from "../Pages/StudentProfile/StudentProfile";
 
 export const router = createBrowserRouter([
@@ -16,13 +22,34 @@ export const router = createBrowserRouter([
                 element: <Home></Home>
             }, 
             {
-                path: "/studentprofile",
+                path: "/contact",
+                element: <ContactForm></ContactForm>
+            }, 
+            {
+                path: "/about-us",
+                element: <AboutUs></AboutUs>
+            },
+            {
+                path : "/courses",
+                element : <Courses/>
+            },
+            {
+                path: "/register",
+                element: <Register></Register>
+            }, 
+            {
+                path: "/login",
+                element: <LogIn></LogIn>
+            },
+            {
+                path: "/student-profile",
                 element: <StudentProfile></StudentProfile>
             }, 
             {
-                path: "/whychoseus",
-                element: <WhyChooseUs></WhyChooseUs>
-            }, 
+                path: "/skills",
+                element: <Skills/>
+            }
         ]
-    }
+    },
+    
 ])
