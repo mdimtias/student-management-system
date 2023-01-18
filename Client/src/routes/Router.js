@@ -1,5 +1,4 @@
 import { createBrowserRouter } from "react-router-dom";
-import ContactForm from "../component/contactForm/ContactForm";
 import Skills from "../component/skills/Skills";
 import Main from "../Layout/Main/Main";
 import AboutUs from "../Pages/AboutUs/AboutUs";

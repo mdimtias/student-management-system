@@ -59,13 +59,13 @@
     color:#fff;
 }
 /* Slider Overwrite css */
-.kXteup:hover:enabled, .kXteup:focus:enabled{
+.rec-arrow-left:hover:enabled, .rec-arrow-right:focus:enabled{
     background: #121E5F !important;
 }
 .Slxdj{
     background-color: #ffffff !important;
 }
-.Slxdj, .kXteup {
+.rec-arrow-left, .rec-arrow-right {
     width: 44px !important;
     height: 44px !important;
     min-width: 44px !important;
@@ -76,4 +76,7 @@
 }
 .cVXxbE {
     background-color: #121E5F !important;
+}
+.goodpl{
+	background-color: #010049 !important;
 }
