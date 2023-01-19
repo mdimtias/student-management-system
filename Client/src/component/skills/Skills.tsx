@@ -20,53 +20,53 @@ const Skills = () => {
     console.log(newCata);
     const skillsDataMap = newCata.map(skill => <SkillsCard skill={skill} />)
 
-    const handleCataLoad = (cata: any) =>{
+    const handleCataLoad = (cata: any) => {
         const filterCata = skillsDa.filter(c => c.cata === cata)
         setNewCata(filterCata)
         console.log(filterCata);
     }
     return (
         <div className='bg-white p-4'>
-            <div className='bg-gradient-to-r from-black via-indigo-500 to-black p-5 text-white font-custom rounded-xl h-[90vh]'>
+            <div className='bg-gradient-to-r from-black via-indigo-900 to-black p-5 text-white font-custom rounded-xl h-full'>
                 <div className='mt-8 text-center'>
-                    <h1 className="text-4xl mt-4">New Year, New Skill</h1>
+                    <h1 className="text-3xl mt-4">New Year, New Skill</h1>
                     <h2 className="text-xl my-3">
                         In the New Year, EduManage courses and bundles will be available at even more savings</h2>
-                    <div className="flex justify-center items-center mb-8 gap-4">
-                        <div className="flex justify-center items-center md:gap-1 text-xs md:text-base flex-nowrap">
+                    <div className="flex justify-center items-center mb-8 md:gap-4">
+                        <div className="flex justify-center items-center gap-1 md:text-base">
                             <AiFillCheckCircle />
-                            <div className="">
+                            <span className="text-xs mr-1">
                                 Best teachers
-                            </div>
+                            </span>
                         </div>
                         <div className="flex justify-center items-center gap-1 ">
                             <AiFillCheckCircle />
-                            <div className="">
-                                Quality courses
-                            </div>
+                            <span className="text-xs mr-1">
+                                Quality content
+                            </span>
                         </div>
                         <div className="flex justify-center items-center gap-1 ">
                             <AiFillCheckCircle />
-                            <div className="">
+                            <span className="text-xs">
                                 10+ courses
-                            </div>
+                            </span>
                         </div>
                     </div>
                 </div>
                 <div className='w-[80%] mx-auto'>
-                    <div className="flex gap-3 text-center justify-center mb-4">
+                    <Carousel responsive={responsive}>
                         {
                             uniqueCataArr.map(u => (
-                                <div className="flex gap-3">
+                                <div className=" mb-4 text-center w-11/12 mx-auto">
                                     <h1
-                                    onClick={() => handleCataLoad(u)}
-                                     className="bg-purple-700 px-2 py-1 rounded-xl cursor-pointer">
+                                        onClick={() => handleCataLoad(u)}
+                                        className="bg-purple-700 hover:bg-purple-600 px-2 py-1 rounded-xl cursor-pointer text-xs md:text-base">
                                         {u}
                                     </h1>
                                 </div>
                             ))
                         }
-                    </div>
+                    </Carousel>
                     <Carousel responsive={responsive}>
                         {skillsDataMap}
                     </Carousel>
