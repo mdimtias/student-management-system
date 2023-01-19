@@ -1,9 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
+import ContactForm from "../component/contactForm/ContactForm";
+import Skills from "../component/skills/Skills";
 import Main from "../Layout/Main/Main";
+import AboutUs from "../Pages/AboutUs/AboutUs";
+import ContactForm from "../Pages/contactForm/ContactForm";
+import Courses from "../Pages/Courses/Courses";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Faq from "../Pages/Faq/Faq";
 import Home from "../Pages/Home/Home/Home";
-import WhyChooseUs from "../Pages/Home/Home/WhyChooseUs";
+import LogIn from "../Pages/LogIn/LogIn/LogIn";
+import Register from "../Pages/LogIn/Register/Register";
 import StudentProfile from "../Pages/StudentProfile/StudentProfile";
 
 export const router = createBrowserRouter([
@@ -17,10 +23,31 @@ export const router = createBrowserRouter([
                 element: <Home></Home>
             }, 
             {
-                path: "/studentprofile",
+                path: "/contact",
+                element: <ContactForm></ContactForm>
+            }, 
+            {
+                path: "/about-us",
+                element: <AboutUs></AboutUs>
+            },
+            {
+                path : "/courses",
+                element : <Courses/>
+            },
+            {
+                path: "/register",
+                element: <Register></Register>
+            }, 
+            {
+                path: "/login",
+                element: <LogIn></LogIn>
+            },
+            {
+                path: "/student-profile",
                 element: <StudentProfile></StudentProfile>
             }, 
             {
+<<<<<<< HEAD
                 path: "/whychoseus",
                 element: <WhyChooseUs></WhyChooseUs>
             }, 
@@ -28,6 +55,12 @@ export const router = createBrowserRouter([
                 path: "/faq",
                 element: <Faq></Faq>
             }, 
+=======
+                path: "/skills",
+                element: <Skills/>
+            }
+>>>>>>> 8eec2fa224f1e3c40fe22447a2f9e167ee608ff6
         ]
-    }
+    },
+    
 ])
