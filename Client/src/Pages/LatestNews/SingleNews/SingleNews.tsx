@@ -3,7 +3,7 @@ import { FcBusinessman } from "react-icons/fc";
 import { BiDuplicate } from "react-icons/bi";
 import { BsArrowRight } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import "./SingleNews.css";
+// import "./SingleNews.css";
 
 const SingleNews = () => {
   return (
@@ -22,7 +22,7 @@ const SingleNews = () => {
           </span>
           <h3 className="cursor-pointer">By Admin</h3>
         </div>
-        <div className="latest-blog-category flex items-center gap-2">
+        <div className="latest-blog-category flex items-center flex-wrap gap-2">
           <BiDuplicate className="text-red-500"></BiDuplicate>
           <h3 className="cursor-pointer">Category</h3>
         </div>
@@ -33,7 +33,7 @@ const SingleNews = () => {
         </h2>
       </div>
       <div className="read-more py-5 gap-5 px-5">
-        <Link to="" className="learn-more inline-block">
+        <Link to="" className="learn-more md:inline-block flex flex-row flex-wrap">
           <span className="circle" aria-hidden="true">
             <BsArrowRight className="text-2xl w-12"></BsArrowRight>
           </span>

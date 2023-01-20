@@ -5,7 +5,7 @@ import Carousel from "react-elastic-carousel";
 const LatestNews = () => {
   const breakPoints = [
     { width: 1, itemsToShow: 1 },
-    { width: 568, itemsToShow: 2, itemsToScroll: 2, pagination: false },
+    { width: 568, itemsToShow: 2, itemsToScroll: 2 },
     { width: 1024, itemsToShow: 3 },
     { width: 1280, itemsToShow: 4, itemsToScroll: 2 },
     { width: 1536, itemsToShow: 5 },
