@@ -5,6 +5,7 @@ import AboutUs from "../Pages/AboutUs/AboutUs";
 import ContactForm from "../Pages/contactForm/ContactForm";
 import Courses from "../Pages/Courses/Courses";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
+import FaqSection from "../Pages/FaqSection/FaqSection";
 import Home from "../Pages/Home/Home/Home";
 import LogIn from "../Pages/LogIn/LogIn/LogIn";
 import Register from "../Pages/LogIn/Register/Register";
@@ -47,6 +48,10 @@ export const router = createBrowserRouter([
             {
                 path: "/skills",
                 element: <Skills/>
+            },
+            {
+                path: "/faq",
+                element: <FaqSection/>
             }
         ]
     },
