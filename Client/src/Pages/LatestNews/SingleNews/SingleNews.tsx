@@ -3,7 +3,7 @@ import { FcBusinessman } from "react-icons/fc";
 import { BiDuplicate } from "react-icons/bi";
 import { BsArrowRight } from "react-icons/bs";
 import { Link } from "react-router-dom";
-// import "./SingleNews.css";
+import "./SingleNews.css";
 
 const SingleNews = () => {
   return (

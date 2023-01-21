@@ -9,10 +9,8 @@
 }
 .latest-blog:hover{
     transform: translateY(-5px);
-    -webkit-box-shadow: 0 0 5px rgb(0 0 0 / 12%);
-    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 .latest-blog-img{
     overflow: hidden;
