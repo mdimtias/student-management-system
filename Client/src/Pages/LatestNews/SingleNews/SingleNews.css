@@ -1,0 +1,93 @@
+.latest-blog{
+    overflow: hidden;
+    border-radius: 15px;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -ms-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+}
+.latest-blog:hover{
+    transform: translateY(-5px);
+    -webkit-box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.latest-blog-img{
+    overflow: hidden;
+    width:100%;
+}
+.latest-blog-img img{
+    width:100%;
+    -webkit-transition: all ease .5s;
+    transition: all ease .5s;
+    cursor: pointer;
+}
+.latest-blog:hover .latest-blog-img img{
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+}
+.learn-more{
+    position: relative;
+    cursor: pointer;
+    font-family: inherit;
+    width: 12rem;
+    height: auto;
+}
+.learn-more .circle {
+    transition: all 0.45s cubic-bezier(0.06, 0, 0.076, 0.05);
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    width: 1.5rem;
+    height: 3rem;
+    border-radius: 1.625rem;
+}
+
+.learn-more .button-text {
+    transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0.75rem 0;
+    margin: 0 0 0 1.85rem;
+    color: #282936;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    text-transform: uppercase;
+}
+.learn-more:hover .circle {
+    width: 100%;
+}
+.learn-more:hover .button-text {
+    color: #fff;
+}
+.learn-more:hover .circle{
+    background: #121E5F;
+    color:#fff;
+}
+/* Slider Overwrite css */
+.rec-arrow-left:hover:enabled, .rec-arrow-right:focus:enabled{
+    background: #121E5F !important;
+}
+.Slxdj{
+    background-color: #ffffff !important;
+}
+.rec-arrow-left, .rec-arrow-right {
+    width: 44px !important;
+    height: 44px !important;
+    min-width: 44px !important;
+    line-height: 40px !important;
+    padding-bottom: 20px !important;
+    background-color: #7A7B7E !important;
+    color: #ffffff !important;
+}
+.cVXxbE {
+    background-color: #121E5F !important;
+}
+.goodpl{
+	background-color: #010049 !important;
+}

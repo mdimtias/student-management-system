@@ -1,47 +1,135 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 import "./Register.css";
-import Man from './../../../assets/LogIn/man.jpg';
+import Man from "./../../../assets/LogIn/man.jpg";
+import { createUserDb } from "../../../hooks/createUserDb";
 const Register = () => {
-  const {createUser, updateUser} = useContext(AuthContext)
-  const [loading, setLoading] = useState(false)
+  const { createUser, updateUser } = useContext(AuthContext);
   const navigate = useNavigate();
-    // const [error, setError] = useState({
-    //     name: Boolean,
-    //     email: Boolean,
-    //     password: Boolean
-    // })
+  const [error, setError] = useState({
+    name: "",
+    email: " ",
+    password: "",
+    confirmPassword: "",
+    disabled: true,
+  });
 
-    const handleSubmit = async (e)=>{
-     
-        e.preventDefault();
-        setLoading(true)
-        const form = e.target;
-        const name = form.name.value;
-        const email = form.email.value;
-        const password = form.password.value;
-        const confirmPassword = form.confirmPassword.value;
-        console.log(name, email, password, confirmPassword)
-
-        if(name.length < 5){
-            console.log("Name must be at least 5 Character")
-        }
-        // Registration User
-    createUser(email, password)
-    .then(() => {
-      updateUser(name).then(() => {
-        toast.success("Registration Successful");
-        navigate("../")
-      });
-    })
-    .catch((err) => {
-      toast.error("Account Create Fail");
-      console.log(err)
-    });
-
+  const [user, setUser] = useState({ password: "", confirmPassword: "" });
+  const handleError = (e) => {
+    const name = e.target.name;
+    if (e.target.name === "name") {
+      if (e.target.value.length < 4) {
+        setError({ ...error, name: "*Please enter your name!" });
+        console.log("ami");
+      } else if (e.target.value === "") {
+        setError({ ...error, name: "*Name must be at least 4 Character" });
+      } else if (e.target.value.length >= 4) {
+        setError({ ...error, name: "" });
+      } else {
+        setError({ ...error, name: "" });
+      }
     }
+
+    // Email Validate
+    if (name === "email") {
+      const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (e.target.value === "") {
+        setError({ ...error, email: "*Please enter your email!" });
+      } else if (!re.test(e.target.value)) {
+        setError({
+          ...error,
+          email: "*Please enter your correct email address!",
+        });
+      } else {
+        setError({ ...error, email: "" });
+      }
+    }
+
+    // Password Validate
+    if (name === "password" || name === "confirmPassword") {
+      if (user.password === "") {
+        setError({ ...error, password: "*Please enter your new password!" });
+      } else if (user.password.length < 6) {
+        setError({
+          ...error,
+          password: "**Password length must be at least 6 characters",
+        });
+      } else {
+        setError({ ...error, password: "" });
+      }
+    }
+  };
+
+  // Confirm Password Validation
+  const handleConfirmPassword = (e) => {
+    setUser({ ...user, confirmPassword: e.target.value });
+    const userConfirmPassword = e.target.value;
+    const passwordLength = user.password.length;
+    if (passwordLength <= userConfirmPassword.length) {
+      if (user.password !== userConfirmPassword) {
+        setError({
+          ...error,
+          confirmPassword: "Your Password don't match, enter the same password",
+        });
+      } else {
+        setError({ ...error, confirmPassword: "" });
+      }
+    }
+  };
+  useEffect(() => {
+    if (
+      error.name.length === 0 &&
+      error.email.length === 0 &&
+      error.password.length === 0 &&
+      error.confirmPassword.length === 0
+    ) {
+      setError({ ...error, disabled: false });
+    } else {
+      setError({ ...error, disabled: true });
+    }
+  }, [error.name, error.email, error.password, error.confirmPassword]);
+
+  const handleName = (e) => {
+    if (e.target.value.length >= 4) {
+      setError({ ...error, name: "" });
+    }
+  };
+  const handleSubmit = async (e) => {
+    console.log(error);
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const email = form.email.value;
+    const password = form.password.value;
+    const userData = { name, email, role: "student" };
+
+    // Name Validation
+    if (name === "") {
+      setError({ ...error, name: "*Please enter your name!" });
+      return;
+    } else if (name.length < 4) {
+      setError({ ...error, name: "*Name must be at least 4 Character" });
+      return;
+    } else {
+      setError({ ...error, name: "" });
+    }
+
+    // Registration User
+    createUser(email, password)
+      .then(() => {
+        updateUser(name).then(() => {
+          createUserDb(email, userData);
+          toast.success("Registration Successful");
+          navigate("/");
+        });
+      })
+      .catch((err) => {
+        toast.error("Account Create Fail!");
+        console.log(err);
+      });
+  };
   return (
     <section className="register-section flex items-center justify-center min-h-screen">
       <div className="container mx-auto">
@@ -74,70 +162,77 @@ const Register = () => {
                       Name
                     </label>
                     <input
+                      onChange={handleName}
                       name="name"
                       type="text"
                       placeholder="Name"
                       className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
                     />
                   </div>
+                  <span className="text-red-500 text-sm">{error.name}</span>
                   <div className="mt-4">
                     <label className="block" htmlFor="email">
                       Email
                     </label>
                     <input
-                     name="email"
+                      onBlur={handleError}
+                      name="email"
                       type="text"
                       placeholder="Email"
                       className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
                     />
                   </div>
+                  <span className="text-red-500 text-sm">{error.email}</span>
                   <div className="mt-4">
                     <label className="block">Password</label>
                     <input
+                      onBlur={handleError}
+                      onChange={(e) => {
+                        setUser({ ...user, password: e.target.value });
+                      }}
                       name="password"
                       type="password"
                       placeholder="Password"
                       className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
                     />
                   </div>
+                  <span className="text-red-500 text-sm">{error.password}</span>
                   <div className="mt-4">
                     <label className="block">Confirm Password</label>
                     <input
+                      onBlur={handleError}
+                      onChange={handleConfirmPassword}
                       name="confirmPassword"
                       type="password"
                       placeholder="Password"
                       className="w-full px-4 py-2 mt-2 border rounded-md focus:outline-none focus:ring-1 focus:ring-blue-600"
                     />
                   </div>
-                  <span className="text-xs text-red-400 hidden">
-                    Password must be same!
+                  <span className="text-red-500 text-sm">
+                    {error.confirmPassword}
                   </span>
                   <div className="flex">
-                    <button className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900">
+                    <button
+                      className="w-full px-6 py-2 mt-4 text-white bg-blue-600 rounded-lg hover:bg-blue-900"
+                      disabled={error.disabled}
+                    >
                       Create Account
                     </button>
                   </div>
                   <div className="mt-6 text-grey-dark">
                     Already have an account?
-                    <Link to="/login" className="text-blue-600 hover:underline">Log In</Link>
+                    <Link to="/login" className="text-blue-600 hover:underline">
+                      Log In
+                    </Link>
                   </div>
                 </div>
               </form>
             </div>
           </div>
           <div className="register-banner child items-center hidden md:flex">
-            <img
-              src={Man}
-              alt=""
-            />
+            <img src={Man} alt="" />
           </div>
         </div>
-        {/* <div className="container">
-  
-  <div className="child"><p>This is some text to fill the paragraph</p></div>
-  <div className="child"><p>This is a lot of text to show you that the other div will stretch to the same height as this one even though they do not have the same amount of text inside them. If you remove text from this div, it will shrink and so will the other div.</p></div>
-  
-</div> */}
       </div>
     </section>
   );

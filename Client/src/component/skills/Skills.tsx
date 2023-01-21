@@ -17,13 +17,11 @@ const Skills = () => {
     let categories = skillsDa.map(item => item.cata).filter((item, index, self) => self.indexOf(item) === index);
     const uniqueCataArr = [...categories]
     const [newCata, setNewCata] = useState<cataData>(skillsDa)
-    console.log(newCata);
-    const skillsDataMap = newCata.map(skill => <SkillsCard skill={skill} />)
+    const skillsDataMap = newCata.map(skill => <SkillsCard key={skill.id} skill={skill} />)
 
     const handleCataLoad = (cata: any) => {
         const filterCata = skillsDa.filter(c => c.cata === cata)
         setNewCata(filterCata)
-        console.log(filterCata);
     }
     return (
         <div className='bg-white p-4'>
