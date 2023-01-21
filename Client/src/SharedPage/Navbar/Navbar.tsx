@@ -22,11 +22,11 @@ const Navbar = () => {
 
                 {/* burger menu button start */}
                 <button onClick={() => setOpen(!open)} className="w-full  z-20 cursor-pointer p-2 text-sm font-medium hover:border-gray-900/70 hover:text-gray-900/70 md:hidden">
-                    <svg x-ref="menu" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="h-6 w-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    <svg x-ref="menu" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="h-6 w-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                     </svg>
-                    <svg x-ref="close" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" className="hidden h-6 w-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                    <svg x-ref="close" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" className="hidden h-6 w-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
                 {/* burger menu button end */}
@@ -44,13 +44,16 @@ const Navbar = () => {
                         <Link to='/' className="cursor-pointer text-sm font-medium  text-gray-900">Home</Link>
                     </li>
                     <li className=' py-2 px-5 text-black hover:bg-blue-100  rounded-2xl  font-semibold ease-in-out duration-300'>
-                        <Link to='/student-profile' className="cursor-pointer text-sm font-medium text-gray-900">Student</Link>
+                        <Link to='/admindashboard' className="cursor-pointer text-sm font-medium text-gray-900">Dashboard</Link>
                     </li>
                     <li className=' py-2 px-5 text-black hover:bg-blue-100  rounded-2xl  font-semibold ease-in-out duration-300'>
                         <Link to='/courses' className="cursor-pointer text-sm font-medium text-gray-900">Course</Link>
                     </li >
                     <li className=' py-2 px-5 text-black hover:bg-blue-100  rounded-2xl  font-semibold ease-in-out duration-300'>
                         <Link to='/contact' className="cursor-pointer text-sm font-medium text-gray-900">Contract Us</Link>
+                    </li>
+                    <li className=' py-2 px-5 text-black hover:bg-blue-100  rounded-2xl  font-semibold ease-in-out duration-300'>
+                        <Link to='/faq' className="cursor-pointer text-sm font-medium text-gray-900">Faq</Link>
                     </li>
 
                 </ul>

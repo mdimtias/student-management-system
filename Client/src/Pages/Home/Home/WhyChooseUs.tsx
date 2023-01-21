@@ -7,7 +7,7 @@ const WhyChooseUs = () => {
                 <h1 className='text-5xl text-white font-bold text-center pb-10'>Why choose us?</h1>
 
                 <div className='flex flex-col md:flex-row justify-center  items-center'>
-                    <div className='w-full md:w-1/3 flex flex-col items-start'>
+                    <div className='w-full md:w-1/3 flex flex-col items-start text-start'>
 
                         <div className='flex items-center'>
                             <img className='w-1/3' src="https://i.ibb.co/1r5CKMp/image-removebg-preview-1.png" alt="" />

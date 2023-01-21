@@ -17,13 +17,11 @@ const Skills = () => {
     let categories = skillsDa.map(item => item.cata).filter((item, index, self) => self.indexOf(item) === index);
     const uniqueCataArr = [...categories]
     const [newCata, setNewCata] = useState<cataData>(skillsDa)
-    console.log(newCata);
-    const skillsDataMap = newCata.map(skill => <SkillsCard skill={skill} />)
+    const skillsDataMap = newCata.map(skill => <SkillsCard key={skill.id} skill={skill} />)
 
     const handleCataLoad = (cata: any) =>{
         const filterCata = skillsDa.filter(c => c.cata === cata)
         setNewCata(filterCata)
-        console.log(filterCata);
     }
     return (
         <div className='bg-white p-4'>
@@ -57,7 +55,7 @@ const Skills = () => {
                     <div className="flex gap-3 text-center justify-center mb-4">
                         {
                             uniqueCataArr.map(u => (
-                                <div className="flex gap-3">
+                                <div key={u} className="flex gap-3">
                                     <h1
                                     onClick={() => handleCataLoad(u)}
                                      className="bg-purple-700 px-2 py-1 rounded-xl cursor-pointer">
