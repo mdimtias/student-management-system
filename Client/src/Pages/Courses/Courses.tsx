@@ -21,7 +21,6 @@ const Courses = () => {
         console.log(filterCata);
         setCourses(filterCata)
     }
-    console.log(courses);
     return (
         <div className='w-[90%] mx-auto mt-5'>
            <CourseTitleNav handleCourseCategory={handleCourseCategory} setCourses={setCourses}/>

@@ -13,7 +13,7 @@ const Footer = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IFormInput>();
-  const handleLoging: SubmitHandler<IFormInput> = (data) => {
+  const handleLoging: SubmitHandler<IFormInput> = (data:any) => {
     console.log(data);
   };
   return (

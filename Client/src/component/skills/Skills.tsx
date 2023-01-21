@@ -52,10 +52,10 @@ const Skills = () => {
                     </div>
                 </div>
                 <div className='w-[80%] mx-auto'>
-                    <Carousel responsive={responsive}>
+                <Carousel responsive={responsive}>
                         {
-                            uniqueCataArr.map(u => (
-                                <div className=" mb-4 text-center w-11/12 mx-auto">
+                            uniqueCataArr.map((u,i) => (
+                                <div key={i} className=" mb-4 text-center w-11/12 mx-auto">
                                     <h1
                                         onClick={() => handleCataLoad(u)}
                                         className="bg-purple-700 hover:bg-purple-600 px-2 py-1 rounded-xl cursor-pointer text-xs md:text-base">
