@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import ComingSoon from "../component/Coming Soon/ComingSoon";
 import Skills from "../component/skills/Skills";
 import Main from "../Layout/Main/Main";
 import AboutUs from "../Pages/AboutUs/AboutUs";
@@ -13,7 +14,6 @@ import WhyChooseUs from "../Pages/Home/Home/WhyChooseUs";
 import LogIn from "../Pages/LogIn/LogIn/LogIn";
 import Register from "../Pages/LogIn/Register/Register";
 import StudentProfile from "../Pages/StudentProfile/StudentProfile";
-
 export const router = createBrowserRouter([
     {
         path: "/", 
@@ -67,7 +67,11 @@ export const router = createBrowserRouter([
             {
                 path: "/admin-dashboard",
                 element: <AdminDashboard/>
-            }
+            },
+            {
+                path: "/coming-soon",
+                element: <ComingSoon></ComingSoon>
+            },
         ]
     },
     

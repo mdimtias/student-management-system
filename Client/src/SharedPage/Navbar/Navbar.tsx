@@ -44,7 +44,7 @@ const Navbar = () => {
                         <Link to='/' className="cursor-pointer text-sm font-medium  text-gray-900">Home</Link>
                     </li>
                     <li className=' py-2 px-5 text-black hover:bg-blue-100  rounded-2xl  font-semibold ease-in-out duration-300'>
-                        <Link to='/admindashboard' className="cursor-pointer text-sm font-medium text-gray-900">Dashboard</Link>
+                        <Link to='/admin-dashboard' className="cursor-pointer text-sm font-medium text-gray-900">Dashboard</Link>
                     </li>
                     <li className=' py-2 px-5 text-black hover:bg-blue-100  rounded-2xl  font-semibold ease-in-out duration-300'>
                         <Link to='/courses' className="cursor-pointer text-sm font-medium text-gray-900">Course</Link>
