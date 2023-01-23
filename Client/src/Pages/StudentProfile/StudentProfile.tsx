@@ -1,7 +1,9 @@
 import React from "react";
+import { useTitle } from "../../hooks/useTitle";
 import "./StudentProfile.css";
 
 const StudentProfile = () => {
+  useTitle("Student Profile")
   return (
     <div className="flex flex-col lg:flex-row pt-20 mx-2 md:mx-0">
       <div className="lg:w-1/5 md:w-[400px] md:block md:mx-auto p-5 shadow-2xl block rounded-2xl h-fit mb-5 mx-5 lg:ml-5">

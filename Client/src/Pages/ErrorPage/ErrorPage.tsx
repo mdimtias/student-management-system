@@ -2,8 +2,10 @@ import React from 'react';
 import Lottie from "lottie-react";
 import error from './errorAssets/error.json'
 import { Link } from 'react-router-dom';
+import { useTitle } from '../../hooks/useTitle';
 
 const ErrorPage = () => {
+    useTitle("Page Not Found")
     return (
         <div className="h-screen w-screen bg-gray-100 flex items-center">
             <div className="container flex flex-col md:flex-row items-center justify-center px-5 text-gray-700">

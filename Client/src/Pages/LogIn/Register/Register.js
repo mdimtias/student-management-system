@@ -5,7 +5,9 @@ import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
 import "./Register.css";
 import Man from "./../../../assets/LogIn/man.jpg";
 import { createUserDb } from "../../../hooks/createUserDb";
+import { useTitle } from "../../../hooks/useTitle";
 const Register = () => {
+  useTitle("Sign Up")
   const { createUser, updateUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [error, setError] = useState({

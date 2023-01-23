@@ -1,0 +1,61 @@
+.form-input-container{
+    position: relative;
+    margin-bottom: 30px;
+    padding: 0 15px;
+}
+.form-input-container label{
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #fff;
+    padding: 0 5px;
+    color: #B4B4B4;
+    font-weight: 500;
+    position: absolute;
+    top: -13px;
+    left: 30px;
+    margin-bottom: 0;
+    z-index: 99;
+    border-radius: 4px;
+}
+.form-input-style{
+    border: 1px solid #ddd;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 400;
+    height: 45px;
+    border-radius: 5px;
+    transition: .15s ease-in-out,
+}
+.student-form-textarea{
+    height: 100px;
+}
+.form-input-style::placeholder{
+    color: #000;
+    font-weight: 400;
+}
+.form-input-style:focus{
+    border-color: #3d5ee1;
+    box-shadow: none;
+    outline: 0 none;
+}
+/* Style Button  */
+.save-btn, .reset-btn{
+    background-color: #042954;
+    padding: 10px 40px;
+    border-radius: 8px;
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.3s ease-out;
+}
+.save-btn{
+    background-color: #3D5EE1;
+    margin-right: 25px;
+}
+.save-btn:hover{
+    background-color: #042954;
+}
+.reset-btn:hover{
+    background-color: #3D5EE1;
+}
+

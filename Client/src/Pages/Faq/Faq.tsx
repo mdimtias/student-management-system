@@ -1,6 +1,8 @@
 import React from 'react';
+import { useTitle } from '../../hooks/useTitle';
 
 const Faq = () => {
+    useTitle("Faq");
     return (
         <div className='py-20 flex flex-col justify-center items-center w-full'>
 

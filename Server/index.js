@@ -17,6 +17,7 @@ const client = new MongoClient(uri, {
 
 // Collection
 const Users = client.db("secondHandLaptop").collection("users");
+const Students = client.db("secondHandLaptop").collection("students");
 
 async function run() {
   try {
@@ -102,7 +103,47 @@ app.get("/users", async (req, res) => {
   }
 });
 
+// Create Students
+app.post("/students", async (req, res) => {
+  try{
+	  const student = req.body;
+	  const result = await Students.insertOne(student)
+	  console.log(result)
+	  res.send({
+		data: result,
+		success: true,
+		message: "Created New Student Data Successful",
+	  });
+  }catch(error){
+	res.send({
+		data: error.message,
+		success: false,
+		message: "Created Student Data Fail",
+	});
+  }
+});
+
+// Get All Products Data
+app.get("/students", async (req, res) => {
+  try {
+    const query = {};
+    const result = await Students.find(query).toArray();
+    res.send({
+      data: result,
+      success: true,
+      message: "Successfully find the all Students data",
+    });
+  } catch (error) {
+    res.send({
+      data: error,
+      success: false,
+      message: "Data Load Fail",
+    });
+  }
+});
+
 
 app.listen(process.env.PORT || 5000, () => {
   console.log("Server Running SuccessFull Port", process.env.PORT);
 });
+

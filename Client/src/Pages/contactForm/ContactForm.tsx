@@ -1,8 +1,10 @@
 import React from 'react';
 import Lottie from "lottie-react";
 import contact from '../contactForm/contactAssets/75663-call-center-support-lottie-animation.json'
+import { useTitle } from '../../hooks/useTitle';
 
 const ContactForm = () => {
+    useTitle("Contact")
     const handleSubmitForm = (e: any) => {
         e.preventDefault()
         const name = e.target.name.value 

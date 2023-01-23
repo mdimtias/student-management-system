@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import CourseTitleNav from './CourseTitleNav/CourseTitleNav';
 import CourseCard from './courseCard/CourseCard';
 import cousedetails from './details'
+import { useTitle } from '../../hooks/useTitle';
 
 type userData =  {
         id: number;
@@ -13,6 +14,7 @@ type userData =  {
     }[]
 
 const Courses = () => {
+    useTitle("Courses")
     const [courses, setCourses] = useState<userData>(cousedetails)
     const handleCourseCategory = (cata : string) =>{
         const filterCata = cousedetails.filter(CourseCatagory => {
