@@ -1,0 +1,9 @@
+.section-admin-dashboard nav svg{
+    /* color: #44CC11; */
+    color: #FFFFFF;
+    font-size: 25px;
+}
+.forward-arrow, .backward-arrow{
+    color: #A0B8C2 !important;
+    font-size: 20px !important;
+}

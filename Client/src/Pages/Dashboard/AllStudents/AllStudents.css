@@ -1,0 +1,21 @@
+.table :where(td){
+    padding: 4px !important;
+    text-align: ce;
+}
+.table :where(th){
+    padding: 15px !important;
+    background: white;
+    border-left: 1px solid #E1E1E1;
+    border-top: 1px solid #E1E1E1;
+    border-bottom: 1px solid #E1E1E1;
+    border-right: 1px solid #E1E1E1;
+}
+.table th:first-child, .table td:first-child{
+    z-index: 0 !important;
+}
+.table th.last-child, .table td:last-child{
+    border-right: 1px solid #E1E1E1;
+}
+.table tr.active th, .table tr.active td {
+    background-color: #F6F6F6 !important;
+}

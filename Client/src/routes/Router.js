@@ -1,11 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import ComingSoon from "../component/Coming Soon/ComingSoon";
 import Skills from "../component/skills/Skills";
+import AdminDashboard from "../Layout/AdminDashboard/AdminDashboard";
 import Main from "../Layout/Main/Main";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import ContactForm from "../Pages/contactForm/ContactForm";
 import Courses from "../Pages/Courses/Courses";
-import AdminDashboard from "../Pages/Dashboard/AdminDashboard";
+import AddStudent from "../Pages/Dashboard/AddStudent/AddStudent";
+import AllStudents from "../Pages/Dashboard/AllStudents/AllStudents";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Faq from "../Pages/Faq/Faq";
 import FaqSection from "../Pages/FaqSection/FaqSection";
@@ -74,5 +76,24 @@ export const router = createBrowserRouter([
             },
         ]
     },
+    {
+        path: "/admin",
+        element: <AdminDashboard></AdminDashboard>,
+        errorElement: <ErrorPage></ErrorPage>,
+        children: [
+            // {
+            //     path: "/admin",
+            //     element: <AdminDashboard></AdminDashboard>
+            // },
+            {
+                path: "/admin/add-students", 
+                element: <AddStudent></AddStudent>
+            },
+            {
+                path: "/admin/all-students", 
+                element: <AllStudents></AllStudents>
+            },
+        ]
+    }
     
 ])
