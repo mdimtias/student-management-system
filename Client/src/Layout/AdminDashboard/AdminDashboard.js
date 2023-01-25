@@ -18,7 +18,7 @@ const AdminDashboard = () => {
   return (
     <div className="section-admin-dashboard flex">
       <Sidebar backgroundColor="#042954">
-      <div className={`flex gap-5 ${collapsed ? "justify-center" : "justify-between"} items-center bg-[#FFA701] p-5`}>
+      <div className={`flex gap-5 ${collapsed ? "justify-center" : "justify-between"} items-center bg-[#3D5EE1] p-5`}>
         {collapsed === false && <h2 className="font-bold text-2xl text-white">Admin</h2>}
         
         {collapsed ? <AiOutlineClose className="text-white text-2xl"  onClick={() => collapseSidebar()}></AiOutlineClose>:<HiMenu className="text-3xl text-white" onClick={() => collapseSidebar()}></HiMenu>}
@@ -83,9 +83,9 @@ const AdminDashboard = () => {
                 label="Teachers"
                 icon={<HiUserGroup />}
               >
-               <MenuItem component={<Link to="./"/>}>All Teachers</MenuItem>
+               <MenuItem component={<Link to="./all-teachers"/>}>All Teachers</MenuItem>
                <MenuItem component={<Link to="./"/>}>Teachers Details</MenuItem>
-               <MenuItem component={<Link to="./"/>}>Add Teacher</MenuItem>
+               <MenuItem component={<Link to="./add-teachers"/>}>Add Teacher</MenuItem>
                <MenuItem component={<Link to="./"/>}>Payments</MenuItem>
           </SubMenu>
           <SubMenu

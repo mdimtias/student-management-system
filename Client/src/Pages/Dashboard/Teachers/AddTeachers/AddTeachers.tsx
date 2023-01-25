@@ -1,44 +1,44 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
-import { imgUpload } from '../../../hooks/imageUpload';
-import { useTitle } from '../../../hooks/useTitle';
-import "./AddStudent.css"
-const AddStudent = () => {
-    useTitle("Add Student")
-     const { register, handleSubmit, reset, formState: { errors } } = useForm();
-    
-     const onSubmit =async (data:any) =>{
-        if(data.studentPhoto[0]){
-            const image = data.studentPhoto[0];
-            const formData = new FormData();
-            formData.append("image", image);
-            const imageUploadServer = await imgUpload(formData);
-            data.studentPhoto = imageUploadServer;
-        }else{
-            data.studentPhoto = "";
-        }
+import { imgUpload } from '../../../../hooks/imageUpload';
+import { useTitle } from '../../../../hooks/useTitle';
 
-        fetch("http://localhost:8080/students", {
-            method: "POST",
-            headers: {
-                "content-type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-        .then(res=>res.json())
-        .then(data=>{
-           if(data.data.acknowledged){
-            toast.success("Add Student Successful")
-            reset();
-            console.log(data)
-           }
-        })
-        .catch(error=>{
-            console.log(error)
-            toast.error("Student Add Fail")
-        })
-     }
+const AddTeachers = () => {
+    useTitle("Add Teachers")
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+   
+    const onSubmit =async (data:any) =>{
+       if(data.teacherPhoto[0]){
+           const image = data.teacherPhoto[0];
+           const formData = new FormData();
+           formData.append("image", image);
+           const imageUploadServer = await imgUpload(formData);
+           data.teacherPhoto = imageUploadServer;
+       }else{
+           data.teacherPhoto = "";
+       }
+
+       fetch(`${process.env.REACT_APP_API_URL}/teachers`, {
+           method: "POST",
+           headers: {
+               "content-type": "application/json"
+           },
+           body: JSON.stringify(data)
+       })
+       .then(res=>res.json())
+       .then(data=>{
+          if(data.data.acknowledged){
+           toast.success("Add Teachers Successful")
+           reset();
+           console.log(data)
+          }
+       })
+       .catch(error=>{
+           console.log(error)
+           toast.error("Teachers Add Fail")
+       })
+    }
     return (
         <div className='add-student-section px-5 py-6'>
             <div className="breadcrumb-area flex justify-between pb-6">
@@ -54,11 +54,6 @@ const AddStudent = () => {
                         <label htmlFor="">Full Name <span className='text-red-500'>*</span></label>
                         <input type="text" placeholder="Enter Full Name" {...register("name", { required: true })} className="input form-input-style w-full" />
                         {errors.name && <span className="text-red-500 text-left block text-bold">Name is required</span>}
-                    </div>
-                    <div className="form-input-container">
-                        <label htmlFor="">Roll <span className='text-red-500'>*</span></label>
-                        <input type="number" placeholder="Enter Roll Number" {...register("roll", { required: true })} className="input form-input-style w-full" />
-                        {errors.roll && <span className="text-red-500 text-left block text-bold">Roll Number is required</span>}
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Gender <span className='text-red-500'>*</span></label>
@@ -110,38 +105,6 @@ const AddStudent = () => {
                         {errors.religion && <span className="text-red-500 text-left block text-bold">Religion name is required</span>}
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Class <span className='text-red-500'>*</span></label>
-                        <select className="form-input-style select w-full" {...register("class", { required: true })} defaultValue="">
-                            <option value="" disabled >Please Select Class *</option>
-                            <option value="Play">Play</option>
-                            <option value="Nursery">Nursery</option>
-                            <option value="One">One</option>
-                            <option value="Two">Two</option>
-                            <option value="Three">Three</option>
-                            <option value="Four">Four</option>
-                            <option value="Five">Five</option>
-                            <option value="Six">Six</option>
-                            <option value="Seven">Seven</option>
-                            <option value="Eight">Eight</option>
-                            <option value="Nine">Nine</option>
-                            <option value="Ten">Ten</option>
-                            <option value="Eleven">Eleven</option>
-                            <option value="Twelve">Twelve</option>
-                        </select>
-                        {errors.class && <span className="text-red-500 text-left block text-bold">Class name is required</span>}
-                    </div>
-                    <div className="form-input-container">
-                        <label htmlFor="">Section</label>
-                        <select className="form-input-style select w-full" {...register("section")} defaultValue="">
-                            <option value="" disabled >Please Select Section</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="C">C</option>
-                            <option value="D">D</option>
-                            <option value="E">E</option>
-                        </select>
-                    </div>
-                    <div className="form-input-container">
                         <label htmlFor="">Mobile <span className='text-red-500'>*</span></label>
                         <input type="number" placeholder="Enter Phone Number" {...register("mobile", { required: true })}  className="input form-input-style w-full" />
                           {errors.mobile && <span className="text-red-500 text-left block text-bold">Mobile number is required</span>}
@@ -150,11 +113,6 @@ const AddStudent = () => {
                         <label htmlFor="">Address<span className='text-red-500'>*</span></label>
                         <input type="text" placeholder="Enter Address" {...register("address", { required: true })}  className="input form-input-style w-full" />
                         {errors.address && <span className="text-red-500 text-left block text-bold">Address Name is required</span>}
-                    </div>
-                    <div className="form-input-container">
-                        <label htmlFor="">Admission ID<span className='text-red-500'>*</span></label>
-                        <input type="text" placeholder="Enter Admission ID" {...register("admissionId", { required: true })}  className="input form-input-style w-full" />
-                          {errors.admissionId && <span className="text-red-500 text-left block text-bold">Admission Id Number is required</span>}
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Email <span className='text-red-500'>*</span></label>
@@ -168,7 +126,7 @@ const AddStudent = () => {
                     </div>
                     <div className="text-left">
                         <label htmlFor="" className='font-bold text-black text-lg'>Upload Student Photo (150 X 150) <span className='text-red-500 mt-5'>*</span></label>
-                        <input type="file" {...register("studentPhoto")}  accept="image/*" className="mt-3 file-input w-full" />
+                        <input type="file" {...register("teacherPhoto")}  accept="image/*" className="mt-3 file-input w-full" />
                     </div>
               </div>
                <div className="form-button">
@@ -180,4 +138,4 @@ const AddStudent = () => {
     );
 };
 
-export default AddStudent;
+export default AddTeachers;

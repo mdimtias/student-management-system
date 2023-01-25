@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import male from "./../../../assets/Students/male.png";
-import female from "./../../../assets/Students/female.png";
-// import "./AllStudents.css";
-import { useTitle } from "../../../hooks/useTitle";
+import male from "./../../../../assets/Students/male.png";
+import female from "./../../../../assets/Students/female.png";
+import "./AllStudents.css";
+import { useTitle } from "../../../../hooks/useTitle";
 const AllStudents = () => {
   useTitle("All Students")
-  const [students, setStudents] = useState([]);
+  const [students, setStudents] = useState<any[]>([]);
   // const { isLoading, error, data: students=[] } = useQuery({
   //     queryKey: ['students'],
   //     queryFn: () =>
@@ -14,7 +14,7 @@ const AllStudents = () => {
   //   })
   //   console.log(students)
   useEffect(() => {
-    fetch("http://localhost:8080/students")
+    fetch(`${process.env.REACT_APP_API_URL}/students`)
       .then((res) => res.json())
       .then((data) => setStudents(data.data));
   }, []);
@@ -34,20 +34,20 @@ const AllStudents = () => {
       </div>
       <div>
         <div className="bg-white p-5">
-          <div className="search-all-student">
-            <h2>All Students</h2>
+          <div className="search-all-student pb-5">
+            <h2 className="font-bold text-2xl pb-5">All Students</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
               <div className="roll">
-                <input type="text" className="bg-[#F8F8F8] py-2 px-2 focus:outline-none" placeholder="Search By Roll Number" />
+                <input type="text" className="bg-[#F8F8F8] py-2 px-2 w-full focus:outline-none" placeholder="Search By Roll Number" />
               </div>
               <div className="name">
-                <input type="text"  className="bg-[#F8F8F8] py-2 px-2 focus:outline-none" placeholder="Search By Name"/>
+                <input type="text"  className="bg-[#F8F8F8] py-2 px-2 w-full focus:outline-none" placeholder="Search By Name"/>
               </div>
               <div className="class">
-                <input type="text"  className="bg-[#F8F8F8] py-2 px-2 focus:outline-none" placeholder="Search By Class"/>
+                <input type="text"  className="bg-[#F8F8F8] py-2 px-2 w-full focus:outline-none" placeholder="Search By Class"/>
               </div>
               <div className="search-btn">
-                <button className="btn">Search</button>
+                <button className="bg-[#042954] py-2 px-10 rounded lg font-bold text-white w-full hover:bg-[#3D5EE1]">Search</button>
               </div>
             </div>
           </div>
@@ -84,7 +84,7 @@ const AllStudents = () => {
                               ? male
                               : female
                           }
-                          alt={student.studentPhoto}
+                          alt={student.name}
                         />
                       </div>
                     </div>

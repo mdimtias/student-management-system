@@ -6,8 +6,8 @@ import Main from "../Layout/Main/Main";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import ContactForm from "../Pages/contactForm/ContactForm";
 import Courses from "../Pages/Courses/Courses";
-import AddStudent from "../Pages/Dashboard/AddStudent/AddStudent";
-import AllStudents from "../Pages/Dashboard/AllStudents/AllStudents";
+import AddStudent from "../Pages/Dashboard/Students/AddStudent/AddStudent";
+import AllStudents from "../Pages/Dashboard/Students/AllStudents/AllStudents";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Faq from "../Pages/Faq/Faq";
 import FaqSection from "../Pages/FaqSection/FaqSection";
@@ -16,6 +16,8 @@ import WhyChooseUs from "../Pages/Home/Home/WhyChooseUs";
 import LogIn from "../Pages/LogIn/LogIn/LogIn";
 import Register from "../Pages/LogIn/Register/Register";
 import StudentProfile from "../Pages/StudentProfile/StudentProfile";
+import AllTeachers from "../Pages/Dashboard/Teachers/AllTeachers/AllTeachers";
+import AddTeachers from "../Pages/Dashboard/Teachers/AddTeachers/AddTeachers";
 export const router = createBrowserRouter([
     {
         path: "/", 
@@ -92,6 +94,14 @@ export const router = createBrowserRouter([
             {
                 path: "/admin/all-students", 
                 element: <AllStudents></AllStudents>
+            },
+            {
+                path: "/admin/add-teachers", 
+                element: <AddTeachers></AddTeachers>
+            },
+            {
+                path: "/admin/all-teachers", 
+                element: <AllTeachers></AllTeachers>
             },
         ]
     }
