@@ -100,8 +100,8 @@ const AdminDashboard = () => {
                 label="Library"
                 icon={<FaReadme />}
               >
-               <MenuItem component={<Link to="./"/>}>All Book</MenuItem>
-               <MenuItem component={<Link to="./"/>}>Add New Book</MenuItem>
+               <MenuItem component={<Link to="./all-books"/>}>All Book</MenuItem>
+               <MenuItem component={<Link to="./add-books"/>}>Add New Book</MenuItem>
           </SubMenu>
           <SubMenu
                 label="Account"

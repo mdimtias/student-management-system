@@ -20,6 +20,8 @@ import AllTeachers from "../Pages/Dashboard/Teachers/AllTeachers/AllTeachers";
 import AddTeachers from "../Pages/Dashboard/Teachers/AddTeachers/AddTeachers";
 import AllParents from "../Pages/Dashboard/Parents/AllParents/AllParents";
 import AddParents from "../Pages/Dashboard/Parents/AddParents/AddParents";
+import AddBook from "../Pages/Dashboard/Books/AddBook/AddBook";
+import AllBooks from "../Pages/Dashboard/Books/AllBooks/AllBooks";
 export const router = createBrowserRouter([
     {
         path: "/", 
@@ -112,6 +114,14 @@ export const router = createBrowserRouter([
             {
                 path: "/admin/all-parents", 
                 element: <AllParents></AllParents>
+            },
+            {
+                path: "/admin/add-books", 
+                element: <AddBook></AddBook>
+            },
+            {
+                path: "/admin/all-books", 
+                element: <AllBooks></AllBooks>
             },
            
 

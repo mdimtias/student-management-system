@@ -20,6 +20,7 @@ const Users = client.db("secondHandLaptop").collection("users");
 const Students = client.db("secondHandLaptop").collection("students");
 const Teachers = client.db("secondHandLaptop").collection("teachers");
 const Parents = client.db("secondHandLaptop").collection("parents");
+const Books = client.db("secondHandLaptop").collection("books");
 
 async function run() {
   try {
@@ -209,6 +210,44 @@ app.get("/parents", async (req, res) => {
       data: result,
       success: true,
       message: "Successfully find the all Parents data",
+    });
+  } catch (error) {
+    res.send({
+      data: error,
+      success: false,
+      message: "Data Load Fail",
+    });
+  }
+});
+
+// Added New Books
+app.post("/books", async (req, res) => {
+  try {
+    const teacher = req.body;
+    const result = await Books.insertOne(teacher);
+    res.send({
+      data: result,
+      success: true,
+      message: "Added New Book Successful",
+    });
+  } catch (error) {
+    res.send({
+      data: error.message,
+      success: false,
+      message: "Fail to Added New Book",
+    });
+  }
+});
+
+// Get All Books Data
+app.get("/books", async (req, res) => {
+  try {
+    const query = {};
+    const result = await Books.find(query).toArray();
+    res.send({
+      data: result,
+      success: true,
+      message: "Successfully find the all Book data",
     });
   } catch (error) {
     res.send({
