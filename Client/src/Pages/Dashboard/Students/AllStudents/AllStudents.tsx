@@ -96,7 +96,7 @@ const AllStudents = () => {
                   <td>{student.fatherName}</td>
                   <td>{student.address}</td>
                   <td>{student.dateOfBirth}</td>
-                  <td>{student.mobile}</td>
+                  <td>{student.phone}</td>
                   <td>{student.email}</td>
                   <td>Edit || Delete</td>
                 </tr>

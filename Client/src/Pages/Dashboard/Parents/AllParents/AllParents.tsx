@@ -3,31 +3,31 @@ import { useTitle } from '../../../../hooks/useTitle';
 import male from "./../../../../assets/Students/male.png";
 import female from "./../../../../assets/Students/female.png";
 
-const AllTeachers = () => {
-    useTitle("All Teachers")
-    const [teachers, setTeachers] = useState<any[]>([]);
+const AllParents = () => {
+    useTitle("All parentss")
+    const [parents, setParents] = useState<any[]>([]);
     useEffect(() => {
-      fetch(`${process.env.REACT_APP_API_URL}/teachers`)
+      fetch(`${process.env.REACT_APP_API_URL}/parents`)
         .then((res) => res.json())
-        .then((data) => setTeachers(data.data));
+        .then((data) => setParents(data.data));
     }, []);
     return (
         <div className="all-students-section py-5 px-7">
         <div className="breadcrumb-area flex justify-between pb-6">
           <h2 className="text-left text-bold text-black text-2xl">
-            All Teachers
+            All Parents
           </h2>
           <div className="flex gap-1">
-            <h3 className="text-left text-bold text-black text-2xl">Student</h3>
+            <h3 className="text-left text-bold text-black text-2xl">Parents</h3>
             <h4 className="text-left text-bold text-[#6C757D] text-2xl">
-              / All Teachers
+              / All Parents
             </h4>
           </div>
         </div>
         <div>
           <div className="bg-white p-5">
             <div className="search-all-student pb-5">
-              <h2 className="font-bold text-2xl pb-5">All Teachers</h2>
+              <h2 className="font-bold text-2xl pb-5">All Parents</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                 <div className="roll">
                   <input type="text" className="bg-[#F8F8F8] py-2 px-2 w-full focus:outline-none" placeholder="Search By Roll Number" />
@@ -50,6 +50,7 @@ const AllTeachers = () => {
                   <th>Photo</th>
                   <th>Name</th>
                   <th>Gender</th>
+                  <th>Occupation</th>
                   <th>Parent</th>
                   <th>Address</th>
                   <th>Date Of Birth</th>
@@ -59,31 +60,32 @@ const AllTeachers = () => {
                 </tr>
               </thead>
               <tbody className="text-center">
-                {teachers?.map((teacher, i) => (
-                  <tr key={teacher._id} className={`${i % 2 ? "" : "active"}`}>
+                {parents?.map((parents, i) => (
+                  <tr key={parents._id} className={`${i % 2 ? "" : "active"}`}>
                     <td className="">
                       <div className="avatar">
                         <div className="w-12 rounded-full">
                           <img
                             src={
-                              teacher?.teacherPhoto
-                                ? teacher.teacherPhoto
-                                : teacher.gender === "Male"
+                              parents?.parentsPhoto
+                                ? parents.parentsPhoto
+                                : parents.gender === "Male"
                                 ? male
                                 : female
                             }
-                            alt={teacher.name}
+                            alt={parents.name}
                           />
                         </div>
                       </div>
                     </td>
-                    <td>{teacher.name}</td>
-                    <td>{teacher.gender}</td>
-                    <td>{teacher.fatherName}</td>
-                    <td>{teacher.address}</td>
-                    <td>{teacher.dateOfBirth}</td>
-                    <td>{teacher.phone}</td>
-                    <td>{teacher.email}</td>
+                    <td>{parents.name}</td>
+                    <td>{parents.gender}</td>
+                    <td>{parents.occupation}</td>
+                    <td>{parents.fatherName}</td>
+                    <td>{parents.address}</td>
+                    <td>{parents.dateOfBirth}</td>
+                    <td>{parents.phone}</td>
+                    <td>{parents.email}</td>
                     <td>Edit || Delete</td>
                   </tr>
                 ))}
@@ -97,4 +99,4 @@ const AllTeachers = () => {
     );
 };
 
-export default AllTeachers;
+export default AllParents;

@@ -106,8 +106,8 @@ const AddTeachers = () => {
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Mobile <span className='text-red-500'>*</span></label>
-                        <input type="number" placeholder="Enter Phone Number" {...register("mobile", { required: true })}  className="input form-input-style w-full" />
-                          {errors.mobile && <span className="text-red-500 text-left block text-bold">Mobile number is required</span>}
+                        <input type="number" placeholder="Enter Phone Number" {...register("phone", { required: true })}  className="input form-input-style w-full" />
+                          {errors.phone && <span className="text-red-500 text-left block text-bold">Mobile number is required</span>}
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Address<span className='text-red-500'>*</span></label>

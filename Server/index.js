@@ -19,6 +19,7 @@ const client = new MongoClient(uri, {
 const Users = client.db("secondHandLaptop").collection("users");
 const Students = client.db("secondHandLaptop").collection("students");
 const Teachers = client.db("secondHandLaptop").collection("teachers");
+const Parents = client.db("secondHandLaptop").collection("parents");
 
 async function run() {
   try {
@@ -141,6 +142,7 @@ app.get("/students", async (req, res) => {
     });
   }
 });
+
 // Added New Teachers
 app.post("/teachers", async (req, res) => {
   try {
@@ -169,6 +171,44 @@ app.get("/teachers", async (req, res) => {
       data: result,
       success: true,
       message: "Successfully find the all Teachers data",
+    });
+  } catch (error) {
+    res.send({
+      data: error,
+      success: false,
+      message: "Data Load Fail",
+    });
+  }
+});
+
+// Added New Parents
+app.post("/parents", async (req, res) => {
+  try {
+    const teacher = req.body;
+    const result = await Parents.insertOne(teacher);
+    res.send({
+      data: result,
+      success: true,
+      message: "Added New Parents Successful",
+    });
+  } catch (error) {
+    res.send({
+      data: error.message,
+      success: false,
+      message: "Fail to Added New Teacher",
+    });
+  }
+});
+
+// Get All Parents Data
+app.get("/parents", async (req, res) => {
+  try {
+    const query = {};
+    const result = await Parents.find(query).toArray();
+    res.send({
+      data: result,
+      success: true,
+      message: "Successfully find the all Parents data",
     });
   } catch (error) {
     res.send({
