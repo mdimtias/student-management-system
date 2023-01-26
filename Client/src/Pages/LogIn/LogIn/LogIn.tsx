@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { useTitle } from "../../../hooks/useTitle";
 
 const LogIn = () => {
-  useTitle("Log In")
+  useTitle("Log In");
+
   return (
     <section className="register-section min-h-screen flex items-center bg-[#212529]">
       <div className="container mx-auto my-auto px-10 py-10 xl:px-60">
@@ -48,8 +49,10 @@ const LogIn = () => {
                 />
               </div>
               <div className="flex flex-col mt-4 w-full">
+                
                 <button type="button" className="btn disabled:text-[#878787] hover:bg-[#025BDF] bg-[#0d6efd]">
-                  Sign In
+                <Link to="./../admin">  Sign In
+                </Link>
                 </button>
               </div>
               <div className="flex flex-col mt-6 w-full">

@@ -6,9 +6,10 @@
 .form-input-container label{
     font-size: 16px;
     font-weight: bold;
-    background-color: #fff;
+    /* background-color: #fff; */
+    background-color: #F0F1F3;
     padding: 0 5px;
-    color: #B4B4B4;
+    color: #000000;
     font-weight: 500;
     position: absolute;
     top: -13px;
@@ -58,3 +59,12 @@
     background-color: #3D5EE1;
 }
 
+select,
+select option {
+  color: #000000;
+}
+
+select:invalid,
+select option[value=""], select:disabled {
+  color: #999999;
+}

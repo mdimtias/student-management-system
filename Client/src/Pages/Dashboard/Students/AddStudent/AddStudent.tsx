@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { imgUpload } from '../../../../hooks/imageUpload';
 import { useTitle } from '../../../../hooks/useTitle';
+import { Input } from '../../../StyleComponent/Input.styled';
 import "./AddStudent.css"
 const AddStudent = () => {
     useTitle("Add Students")
@@ -52,18 +53,19 @@ const AddStudent = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     <div className="form-input-container">
                         <label htmlFor="">Full Name <span className='text-red-500'>*</span></label>
-                        <input type="text" placeholder="Enter Full Name" {...register("name", { required: true })} className="input form-input-style w-full" />
-                        {errors.name && <span className="text-red-500 text-left block text-bold">Name is required</span>}
+                        {/*  <Input type="text" placeholder="Enter Full Name" {...register("name", { required: true })}  /> */}
+                         <Input type="text" placeholder='Enter Name' {...register("name", { required: true })} />
+                        {errors.name && <span className="text-red-500 text-left block text-bold" >Name is required</span>}
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Roll <span className='text-red-500'>*</span></label>
-                        <input type="number" placeholder="Enter Roll Number" {...register("roll", { required: true })} className="input form-input-style w-full" />
+                         <Input type="number" placeholder="Enter Roll Number" {...register("roll", { required: true })}  />
                         {errors.roll && <span className="text-red-500 text-left block text-bold">Roll Number is required</span>}
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Gender <span className='text-red-500'>*</span></label>
-                        <select className="form-input-style select w-full"  {...register("gender", { required: true })}  defaultValue="">
-                            <option value="" disabled  className="text-[#B4B4B4]">Select Gender</option>
+                        <select required className="form-input-style select w-full bg-[#F0F1F3]"  {...register("gender", { required: true })}  defaultValue="">
+                            <option value="" disabled className="text-[#B4B4B4]">Select Gender</option>
                             <option value="Male" className="text-black">Male</option>
                             <option value="Female" className="text-black">Female</option>
                             <option value="Other" className="text-black">Other</option>
@@ -72,22 +74,22 @@ const AddStudent = () => {
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Father Name <span className='text-red-500'>*</span></label>
-                        <input type="text" placeholder="Enter Father Name" {...register("fatherName", { required: true })}  className="input form-input-style w-full" />
+                         <Input type="text" placeholder="Enter Father Name" {...register("fatherName", { required: true })}   />
                         {errors.fatherName && <span className="text-red-500 text-left block text-bold">Father Name is required</span>}
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Mother Name <span className='text-red-500'>*</span></label>
-                        <input type="text" placeholder="Enter Mother Name" {...register("motherName", { required: true })} className="input form-input-style w-full" />
+                         <Input type="text" placeholder="Enter Mother Name" {...register("motherName", { required: true })}  />
                         {errors.motherName && <span className="text-red-500 text-left block text-bold">Mother Name is required</span>}
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Date Of Birth <span className='text-red-500'>*</span></label>
-                        <input type="date" placeholder="dd/mm/yyyy" {...register("dateOfBirth", { required: true })} className="input form-input-style w-full" />
+                         <Input type="date" value="2000-06-22" min="1950-01-01" max="2050-12-31" placeholder="dd/mm/yyyy" {...register("dateOfBirth", { required: true })}  />
                         {errors.dateOfBirth && <span className="text-red-500 text-left block text-bold">Date Of Birth is required</span>}
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Blood Group</label>
-                        <select className="form-input-style select w-full" {...register("bloodGroup")} defaultValue="">
+                        <select required className="form-input-style select w-full bg-[#F0F1F3]" {...register("bloodGroup")} defaultValue="">
                             <option value="" disabled >Please Select Blood Group </option>
                             <option value="A+">A+</option>
                             <option value="A-">A-</option>
@@ -99,7 +101,7 @@ const AddStudent = () => {
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Religion</label>
-                        <select className="form-input-style select w-full" {...register("religion", { required: true })} defaultValue="">
+                        <select required className="form-input-style select w-full bg-[#F0F1F3]" {...register("religion", { required: true })} defaultValue="">
                             <option value="" disabled >Please Select Religion</option>
                             <option value="Islam">Islam</option>
                             <option value="Hindu">Hindu</option>
@@ -111,7 +113,7 @@ const AddStudent = () => {
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Class <span className='text-red-500'>*</span></label>
-                        <select className="form-input-style select w-full" {...register("class", { required: true })} defaultValue="">
+                        <select required className="form-input-style select w-full bg-[#F0F1F3]" {...register("class", { required: true })} defaultValue="">
                             <option value="" disabled >Please Select Class *</option>
                             <option value="Play">Play</option>
                             <option value="Nursery">Nursery</option>
@@ -132,7 +134,7 @@ const AddStudent = () => {
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Section</label>
-                        <select className="form-input-style select w-full" {...register("section")} defaultValue="">
+                        <select required className="form-input-style select w-full bg-[#F0F1F3]" {...register("section")} defaultValue="">
                             <option value="" disabled >Please Select Section</option>
                             <option value="A">A</option>
                             <option value="B">B</option>
@@ -143,22 +145,22 @@ const AddStudent = () => {
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Mobile <span className='text-red-500'>*</span></label>
-                        <input type="number" placeholder="Enter Phone Number" {...register("phone", { required: true })}  className="input form-input-style w-full" />
+                         <Input type="number" placeholder="Enter Phone Number" {...register("phone", { required: true })}   />
                           {errors.phone && <span className="text-red-500 text-left block text-bold">Mobile number is required</span>}
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Address<span className='text-red-500'>*</span></label>
-                        <input type="text" placeholder="Enter Address" {...register("address", { required: true })}  className="input form-input-style w-full" />
+                         <Input type="text" placeholder="Enter Address" {...register("address", { required: true })}   />
                         {errors.address && <span className="text-red-500 text-left block text-bold">Address Name is required</span>}
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Admission ID<span className='text-red-500'>*</span></label>
-                        <input type="text" placeholder="Enter Admission ID" {...register("admissionId", { required: true })}  className="input form-input-style w-full" />
+                         <Input type="text" placeholder="Enter Admission ID" {...register("admissionId", { required: true })}   />
                           {errors.admissionId && <span className="text-red-500 text-left block text-bold">Admission Id Number is required</span>}
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Email <span className='text-red-500'>*</span></label>
-                        <input type="email" placeholder="Enter Email" {...register("email", { required: true })}  className="input form-input-style w-full" />
+                         <Input type="email" placeholder="Enter Email" {...register("email", { required: true })}   />
                         {errors.email && <span className="text-red-500 text-left block text-bold">Email Address is required</span>}
                     </div>
                 </div>
@@ -168,7 +170,7 @@ const AddStudent = () => {
                     </div>
                     <div className="text-left">
                         <label htmlFor="" className='font-bold text-black text-lg'>Upload Student Photo (150 X 150) <span className='text-red-500 mt-5'>*</span></label>
-                        <input type="file" {...register("studentPhoto")}  accept="image/*" className="mt-3 file-input w-full" />
+                         <input type="file" {...register("studentPhoto")}  accept="image/*" className="mt-3 file-input w-full" />
                     </div>
               </div>
                <div className="form-button">

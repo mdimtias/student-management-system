@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { imgUpload } from '../../../../hooks/imageUpload';
 import { useTitle } from '../../../../hooks/useTitle';
+import { Input } from '../../../StyleComponent/Input.styled';
 
 const AddParents = () => {
     useTitle("Add Parents")
@@ -52,7 +53,7 @@ const AddParents = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     <div className="form-input-container">
                         <label htmlFor="">Full Name <span className='text-red-500'>*</span></label>
-                        <input type="text" placeholder="Enter Full Name" {...register("name", { required: true })} className="input form-input-style w-full" />
+                        <Input type="text" placeholder="Enter Full Name" {...register("name", { required: true })}  />
                         {errors.name && <span className="text-red-500 text-left block text-bold">Name is required</span>}
                     </div>
                     <div className="form-input-container">
@@ -67,22 +68,22 @@ const AddParents = () => {
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Occupation <span className='text-red-500'>*</span></label>
-                        <input type="text" placeholder="Enter Father Name" {...register("occupation", { required: true })}  className="input form-input-style w-full" />
+                        <Input type="text" placeholder="Enter Father Name" {...register("occupation", { required: true })}   />
                         {errors.occupation && <span className="text-red-500 text-left block text-bold">Occupation is required</span>}
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Father Name <span className='text-red-500'>*</span></label>
-                        <input type="text" placeholder="Enter Father Name" {...register("fatherName", { required: true })}  className="input form-input-style w-full" />
+                        <Input type="text" placeholder="Enter Father Name" {...register("fatherName", { required: true })}   />
                         {errors.fatherName && <span className="text-red-500 text-left block text-bold">Father Name is required</span>}
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Mother Name <span className='text-red-500'>*</span></label>
-                        <input type="text" placeholder="Enter Mother Name" {...register("motherName", { required: true })} className="input form-input-style w-full" />
+                        <Input type="text" placeholder="Enter Mother Name" {...register("motherName", { required: true })}  />
                         {errors.motherName && <span className="text-red-500 text-left block text-bold">Mother Name is required</span>}
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Date Of Birth <span className='text-red-500'>*</span></label>
-                        <input type="date" placeholder="dd/mm/yyyy" {...register("dateOfBirth", { required: true })} className="input form-input-style w-full" />
+                        <Input type="date" placeholder="dd/mm/yyyy" {...register("dateOfBirth", { required: true })}  />
                         {errors.dateOfBirth && <span className="text-red-500 text-left block text-bold">Date Of Birth is required</span>}
                     </div>
                     <div className="form-input-container">
@@ -111,17 +112,17 @@ const AddParents = () => {
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Mobile <span className='text-red-500'>*</span></label>
-                        <input type="number" placeholder="Enter Phone Number" {...register("phone", { required: true })}  className="input form-input-style w-full" />
+                        <Input type="number" placeholder="Enter Phone Number" {...register("phone", { required: true })}   />
                           {errors.phone && <span className="text-red-500 text-left block text-bold">Mobile number is required</span>}
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Address<span className='text-red-500'>*</span></label>
-                        <input type="text" placeholder="Enter Address" {...register("address", { required: true })}  className="input form-input-style w-full" />
+                        <Input type="text" placeholder="Enter Address" {...register("address", { required: true })}   />
                         {errors.address && <span className="text-red-500 text-left block text-bold">Address Name is required</span>}
                     </div>
                     <div className="form-input-container">
                         <label htmlFor="">Email <span className='text-red-500'>*</span></label>
-                        <input type="email" placeholder="Enter Email" {...register("email", { required: true })}  className="input form-input-style w-full" />
+                        <Input type="email" placeholder="Enter Email" {...register("email", { required: true })}   />
                         {errors.email && <span className="text-red-500 text-left block text-bold">Email Address is required</span>}
                     </div>
                 </div>
