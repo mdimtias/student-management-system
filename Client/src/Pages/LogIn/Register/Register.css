@@ -1,12 +1,7 @@
-.register-section{
-  background: linear-gradient(red,blue);
-}
-.register-container {
+/* .register-container {
     width: 100%;
-    /* padding: 1em; */
-    /* important */
+    padding: 1em; 
     display: flex;
-    /* important */
     align-items: stretch;
     justify-content: space-around;
   }
@@ -16,4 +11,5 @@
     background: white;
     color: grey;
     min-height: 100%;
-  }
+  } 
+  */
