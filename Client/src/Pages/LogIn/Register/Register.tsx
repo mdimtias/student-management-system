@@ -1,10 +1,18 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { createUserDb } from "../../../hooks/createUserDb";
 import { useTitle } from "../../../hooks/useTitle";
+import { AuthContext } from "../../../contexts/AuthProvider/AuthProvider";
+import { toast } from "react-hot-toast";
+import { GoogleAuthProvider } from "firebase/auth";
+
+const Google = new GoogleAuthProvider();
 const Register = () => {
   useTitle("Register");
+  const {createUser, updateUser, providerLogin} = useContext(AuthContext)
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -14,8 +22,39 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = async (data: any) => {
-    console.log(data);
+    const userData = {
+      name: data.name,
+      email: data.email,
+      role: "student"
+    }
+    // Registration User
+    createUser(data.email, data.password)
+    .then(() => {
+      updateUser(data.name).then(() => {
+          // Save Data Database Users
+        createUserDb(data.email, userData);
+        toast.success("Registration Successful");
+        navigate("./../admin");
+        reset();
+      });
+    })
+    .catch((err:any) => {
+      toast.error("Account Create Fail!");
+      console.log(err);
+    });
   };
+
+  const handleGoogleLogIn = ()=>{
+    providerLogin(Google)
+    .then((data:any)=>{
+      const userData = {name: data?.user?.displayName, email: data?.user?.email }
+      // Save Data Database User
+      createUserDb(data?.user?.displayName, userData);
+      toast.success("Registration Successful");
+      navigate("./../admin");
+      reset();
+    })
+  }
   return (
     <section className="register-section min-h-screen flex items-center bg-[#212529]">
       <div className="container mx-auto my-auto px-10 py-10 xl:px-60">
@@ -28,6 +67,7 @@ const Register = () => {
               <button
                 type="button"
                 className="bg-[#EBF4FF] text-black py-1 w-full rounded-2xl"
+                onClick={()=>handleGoogleLogIn()}
               >
                 <FcGoogle className="inline text-3xl"></FcGoogle> Sign Up With
                 Google
@@ -73,7 +113,7 @@ const Register = () => {
               </div>
               <div className="flex flex-col mt-4 w-full">
                 <input
-                  type="text"
+                  type="password"
                   id="password"
                   placeholder="Password"
                   className="input w-full bg-[#232a31] text-white focus:border-[#80bdff] h-12"
@@ -87,7 +127,7 @@ const Register = () => {
               </div>
               <div className="flex flex-col mt-4 w-full">
                 <input
-                  type="text"
+                  type="password"
                   id="confirmPassword"
                   placeholder="Confirm Password"
                   className="input w-full bg-[#232a31] text-white focus:border-[#80bdff] h-12"
