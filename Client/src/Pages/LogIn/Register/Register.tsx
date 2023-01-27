@@ -1,9 +1,21 @@
 import React from "react";
+import { useForm } from "react-hook-form";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { useTitle } from "../../../hooks/useTitle";
 const Register = () => {
-  useTitle("Register")
+  useTitle("Register");
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = async (data: any) => {
+    console.log(data);
+  };
   return (
     <section className="register-section min-h-screen flex items-center bg-[#212529]">
       <div className="container mx-auto my-auto px-10 py-10 xl:px-60">
@@ -30,6 +42,7 @@ const Register = () => {
             <form
               action=""
               className="p-5 flex flex-col justify-center items-center"
+              onSubmit={handleSubmit(onSubmit)}
             >
               <div className="flex flex-col w-full">
                 <input
@@ -37,14 +50,26 @@ const Register = () => {
                   placeholder="Full Name"
                   id="name"
                   className="input w-full bg-[#232a31] text-white focus:border-[#80bdff] h-12"
+                  {...register("name", { required: true })}
                 />
+                {errors.name && (
+                  <span className="text-red-500 text-left block text-bold">
+                    Please Enter Full Name
+                  </span>
+                )}
               </div>
               <div className="flex flex-col mt-4 w-full">
                 <input
                   type="text"
                   placeholder="Email"
                   className="input w-full bg-[#232a31] text-white focus:border-[#80bdff] h-12"
+                  {...register("email", { required: true })}
                 />
+                {errors.email && (
+                  <span className="text-red-500 text-left block text-bold">
+                    Please Enter Email
+                  </span>
+                )}
               </div>
               <div className="flex flex-col mt-4 w-full">
                 <input
@@ -52,7 +77,13 @@ const Register = () => {
                   id="password"
                   placeholder="Password"
                   className="input w-full bg-[#232a31] text-white focus:border-[#80bdff] h-12"
+                  {...register("password", { required: true })}
                 />
+                {errors.password && (
+                  <span className="text-red-500 text-left block text-bold">
+                    Please Enter Password
+                  </span>
+                )}
               </div>
               <div className="flex flex-col mt-4 w-full">
                 <input
@@ -60,15 +91,29 @@ const Register = () => {
                   id="confirmPassword"
                   placeholder="Confirm Password"
                   className="input w-full bg-[#232a31] text-white focus:border-[#80bdff] h-12"
+                  {...register("confirm_password", {
+                    required: true,
+                    validate: (val: string) => {
+                      if (watch("password") !== val) {
+                        return "Your Password Don't Matches";
+                      }
+                    },
+                  })}
                 />
+                {errors.confirm_password && (
+                  <span className="text-red-500 text-left block text-bold">
+                    Your Password Don't Match
+                  </span>
+                )}
               </div>
-              <div className="flex mt-4 w-full">
+              <div className="flex mt-4 flex-col w-full">
+                <div className="flex">
                 <input
                   type="checkbox"
                   defaultChecked
                   className="bg-[#232A31] w-4 h-4 mr-2 mt-1"
-                  name=""
                   id=""
+                  {...register("termsAndPolicy", { required: true })}
                 />
                 <span className="text-[#dee3e4]">
                   {" "}
@@ -82,14 +127,30 @@ const Register = () => {
                   </Link>
                   .
                 </span>
+                </div>
+               <div className="mt-2">
+               {errors.termsAndPolicy && (
+                  <span className="text-red-500 text-left block text-bold">
+                    Please Agree our terms any policy
+                  </span>
+                )}
+               </div>
               </div>
               <div className="flex flex-col mt-4 w-full">
-                <button type="button" disabled={false} className="btn disabled:bg-[#313641] disabled:text-[#878787] hover:bg-[#025BDF] bg-[#0d6efd]">
+                <button className="btn disabled:bg-[#313641] disabled:text-[#878787] hover:bg-[#025BDF] bg-[#0d6efd]">
                   Create Account
                 </button>
               </div>
               <div className="flex flex-col mt-6 w-full">
-                <p className="text-[#DEE0BD]">Already have an account? <Link to="./../login" className="hover:text-[#025bdf] text-[#0d6efd]">Sign In</Link></p>
+                <p className="text-[#DEE0BD]">
+                  Already have an account?{" "}
+                  <Link
+                    to="./../login"
+                    className="hover:text-[#025bdf] text-[#0d6efd]"
+                  >
+                    Sign In
+                  </Link>
+                </p>
               </div>
             </form>
           </div>
