@@ -6,8 +6,6 @@ import Main from "../Layout/Main/Main";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import ContactForm from "../Pages/contactForm/ContactForm";
 import Courses from "../Pages/Courses/Courses";
-import AddStudent from "../Pages/Dashboard/Students/AddStudent/AddStudent";
-import AllStudents from "../Pages/Dashboard/Students/AllStudents/AllStudents";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import Faq from "../Pages/Faq/Faq";
 import FaqSection from "../Pages/FaqSection/FaqSection";
@@ -16,12 +14,15 @@ import WhyChooseUs from "../Pages/Home/Home/WhyChooseUs";
 import LogIn from "../Pages/LogIn/LogIn/LogIn";
 import Register from "../Pages/LogIn/Register/Register";
 import StudentProfile from "../Pages/StudentProfile/StudentProfile";
-import AllTeachers from "../Pages/Dashboard/Teachers/AllTeachers/AllTeachers";
-import AddTeachers from "../Pages/Dashboard/Teachers/AddTeachers/AddTeachers";
-import AllParents from "../Pages/Dashboard/Parents/AllParents/AllParents";
-import AddParents from "../Pages/Dashboard/Parents/AddParents/AddParents";
-import AddBook from "../Pages/Dashboard/Books/AddBook/AddBook";
-import AllBooks from "../Pages/Dashboard/Books/AllBooks/AllBooks";
+import AddStudent from "../Pages/AdminDashboard/Students/AddStudent/AddStudent";
+import AllStudents from "../Pages/AdminDashboard/Students/AllStudents/AllStudents";
+import AllTeachers from "../Pages/AdminDashboard/Teachers/AllTeachers/AllTeachers";
+import AddTeachers from "../Pages/AdminDashboard/Teachers/AddTeachers/AddTeachers";
+import AllParents from "../Pages/AdminDashboard/Parents/AllParents/AllParents";
+import AddParents from "../Pages/AdminDashboard/Parents/AddParents/AddParents";
+import AddBook from "../Pages/AdminDashboard/Books/AddBook/AddBook";
+import AllBooks from "../Pages/AdminDashboard/Books/AllBooks/AllBooks";
+import AdminDashboardHome from "../Pages/AdminDashboard/AdminDashboardHome/AdminDashboardHome";
 export const router = createBrowserRouter([
     {
         path: "/", 
@@ -87,10 +88,10 @@ export const router = createBrowserRouter([
         element: <AdminDashboard></AdminDashboard>,
         errorElement: <ErrorPage></ErrorPage>,
         children: [
-            // {
-            //     path: "/admin",
-            //     element: <AdminDashboard></AdminDashboard>
-            // },
+            {
+                path: "/admin",
+                element: <AdminDashboardHome></AdminDashboardHome>
+            },
             {
                 path: "/admin/add-students", 
                 element: <AddStudent></AddStudent>

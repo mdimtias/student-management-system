@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast';
 import { imgUpload } from '../../../../hooks/imageUpload';
 import { useTitle } from '../../../../hooks/useTitle';
 import { Input } from '../../../StyleComponent/Input.styled';
+import { Label } from '../../../StyleComponent/Label.styled';
 import "./AddStudent.css"
 const AddStudent = () => {
     useTitle("Add Students")
@@ -52,18 +53,18 @@ const AddStudent = () => {
             <form action="" onSubmit={handleSubmit(onSubmit)} className='px-5 py-10 bg-white'>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     <div className="form-input-container">
-                        <label htmlFor="">Full Name <span className='text-red-500'>*</span></label>
+                        <Label htmlFor="">Full Name <span className='text-red-500'>*</span></Label>
                         {/*  <Input type="text" placeholder="Enter Full Name" {...register("name", { required: true })}  /> */}
                          <Input type="text" placeholder='Enter Name' {...register("name", { required: true })} />
                         {errors.name && <span className="text-red-500 text-left block text-bold" >Name is required</span>}
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Roll <span className='text-red-500'>*</span></label>
+                        <Label htmlFor="">Roll <span className='text-red-500'>*</span></Label>
                          <Input type="number" placeholder="Enter Roll Number" {...register("roll", { required: true })}  />
                         {errors.roll && <span className="text-red-500 text-left block text-bold">Roll Number is required</span>}
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Gender <span className='text-red-500'>*</span></label>
+                        <Label htmlFor="">Gender <span className='text-red-500'>*</span></Label>
                         <select required className="form-input-style select w-full bg-[#F0F1F3]"  {...register("gender", { required: true })}  defaultValue="">
                             <option value="" disabled className="text-[#B4B4B4]">Select Gender</option>
                             <option value="Male" className="text-black">Male</option>
@@ -73,22 +74,22 @@ const AddStudent = () => {
                         {errors.gender && <span className="text-red-500 text-left block text-bold">Gender is required</span>}
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Father Name <span className='text-red-500'>*</span></label>
+                        <Label htmlFor="">Father Name <span className='text-red-500'>*</span></Label>
                          <Input type="text" placeholder="Enter Father Name" {...register("fatherName", { required: true })}   />
                         {errors.fatherName && <span className="text-red-500 text-left block text-bold">Father Name is required</span>}
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Mother Name <span className='text-red-500'>*</span></label>
+                        <Label htmlFor="">Mother Name <span className='text-red-500'>*</span></Label>
                          <Input type="text" placeholder="Enter Mother Name" {...register("motherName", { required: true })}  />
                         {errors.motherName && <span className="text-red-500 text-left block text-bold">Mother Name is required</span>}
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Date Of Birth <span className='text-red-500'>*</span></label>
+                        <Label htmlFor="">Date Of Birth <span className='text-red-500'>*</span></Label>
                          <Input type="date" value="2000-06-22" min="1950-01-01" max="2050-12-31" placeholder="dd/mm/yyyy" {...register("dateOfBirth", { required: true })}  />
                         {errors.dateOfBirth && <span className="text-red-500 text-left block text-bold">Date Of Birth is required</span>}
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Blood Group</label>
+                        <Label htmlFor="">Blood Group</Label>
                         <select required className="form-input-style select w-full bg-[#F0F1F3]" {...register("bloodGroup")} defaultValue="">
                             <option value="" disabled >Please Select Blood Group </option>
                             <option value="A+">A+</option>
@@ -100,7 +101,7 @@ const AddStudent = () => {
                         </select>
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Religion</label>
+                        <Label htmlFor="">Religion</Label>
                         <select required className="form-input-style select w-full bg-[#F0F1F3]" {...register("religion", { required: true })} defaultValue="">
                             <option value="" disabled >Please Select Religion</option>
                             <option value="Islam">Islam</option>
@@ -112,7 +113,7 @@ const AddStudent = () => {
                         {errors.religion && <span className="text-red-500 text-left block text-bold">Religion name is required</span>}
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Class <span className='text-red-500'>*</span></label>
+                        <Label htmlFor="">Class <span className='text-red-500'>*</span></Label>
                         <select required className="form-input-style select w-full bg-[#F0F1F3]" {...register("class", { required: true })} defaultValue="">
                             <option value="" disabled >Please Select Class *</option>
                             <option value="Play">Play</option>
@@ -133,7 +134,7 @@ const AddStudent = () => {
                         {errors.class && <span className="text-red-500 text-left block text-bold">Class name is required</span>}
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Section</label>
+                        <Label htmlFor="">Section</Label>
                         <select required className="form-input-style select w-full bg-[#F0F1F3]" {...register("section")} defaultValue="">
                             <option value="" disabled >Please Select Section</option>
                             <option value="A">A</option>
@@ -144,32 +145,32 @@ const AddStudent = () => {
                         </select>
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Mobile <span className='text-red-500'>*</span></label>
+                        <Label htmlFor="">Mobile <span className='text-red-500'>*</span></Label>
                          <Input type="number" placeholder="Enter Phone Number" {...register("phone", { required: true })}   />
                           {errors.phone && <span className="text-red-500 text-left block text-bold">Mobile number is required</span>}
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Address<span className='text-red-500'>*</span></label>
+                        <Label htmlFor="">Address<span className='text-red-500'>*</span></Label>
                          <Input type="text" placeholder="Enter Address" {...register("address", { required: true })}   />
                         {errors.address && <span className="text-red-500 text-left block text-bold">Address Name is required</span>}
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Admission ID<span className='text-red-500'>*</span></label>
+                        <Label htmlFor="">Admission ID<span className='text-red-500'>*</span></Label>
                          <Input type="text" placeholder="Enter Admission ID" {...register("admissionId", { required: true })}   />
                           {errors.admissionId && <span className="text-red-500 text-left block text-bold">Admission Id Number is required</span>}
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Email <span className='text-red-500'>*</span></label>
+                        <Label htmlFor="">Email <span className='text-red-500'>*</span></Label>
                          <Input type="email" placeholder="Enter Email" {...register("email", { required: true })}   />
                         {errors.email && <span className="text-red-500 text-left block text-bold">Email Address is required</span>}
                     </div>
                 </div>
               <div className="flex">
                     <div className="form-input-container">
-                        <textarea className="form-input-style student-form-textarea p-3 w-[400px]" {...register("bio")}  placeholder="Bio"></textarea>
+                        <textarea className="border border-solid  border-slate-300 hover:border-[#3d5ee1]  focus:border-[#3d5ee1] student-form-textarea p-3 w-[400px]" {...register("bio")}  placeholder="Bio"></textarea>
                     </div>
                     <div className="text-left">
-                        <label htmlFor="" className='font-bold text-black text-lg'>Upload Student Photo (150 X 150) <span className='text-red-500 mt-5'>*</span></label>
+                        <Label htmlFor="" className='font-bold text-black text-lg'>Upload Student Photo (150 X 150) <span className='text-red-500 mt-5'>*</span></Label>
                          <input type="file" {...register("studentPhoto")}  accept="image/*" className="mt-3 file-input w-full" />
                     </div>
               </div>

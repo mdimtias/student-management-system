@@ -12,9 +12,6 @@ import "./AdminDashboard.css";
 import { Link, Outlet } from "react-router-dom";
 const AdminDashboard = () => {
   const { collapseSidebar, collapsed } = useProSidebar();
-  if(collapsed){
-    
-  }
   return (
     <div className="section-admin-dashboard flex">
       <Sidebar backgroundColor="#042954">

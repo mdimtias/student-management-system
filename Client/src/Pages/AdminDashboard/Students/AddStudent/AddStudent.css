@@ -1,0 +1,38 @@
+.form-input-container{
+    position: relative;
+    margin-bottom: 30px;
+    padding: 0 15px;
+}
+.student-form-textarea{
+    height: 100px;
+}
+/* Style Button  */
+.save-btn, .reset-btn{
+    background-color: #042954;
+    padding: 10px 40px;
+    border-radius: 8px;
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+    transition: all 0.3s ease-out;
+}
+.save-btn{
+    background-color: #3D5EE1;
+    margin-right: 25px;
+}
+.save-btn:hover{
+    background-color: #042954;
+}
+.reset-btn:hover{
+    background-color: #3D5EE1;
+}
+
+select,
+select option {
+  color: #000000;
+}
+
+select:invalid,
+select option[value=""], select:disabled {
+  color: #999999;
+}

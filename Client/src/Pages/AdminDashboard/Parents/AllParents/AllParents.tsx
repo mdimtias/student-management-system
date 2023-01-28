@@ -6,6 +6,11 @@ import female from "./../../../../assets/Students/female.png";
 const AllParents = () => {
     useTitle("All parentss")
     const [parents, setParents] = useState<any[]>([]);
+    const [query, setQuery] = useState({
+      name: "",
+      email: "",
+      phone: ""
+    })
     useEffect(() => {
       fetch(`${process.env.REACT_APP_API_URL}/parents`)
         .then((res) => res.json())
@@ -29,14 +34,14 @@ const AllParents = () => {
             <div className="search-all-student pb-5">
               <h2 className="font-bold text-2xl pb-5">All Parents</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-                <div className="roll">
-                  <input type="text" className="bg-[#F8F8F8] py-2 px-2 w-full focus:outline-none" placeholder="Search By Roll Number" />
-                </div>
                 <div className="name">
-                  <input type="text"  className="bg-[#F8F8F8] py-2 px-2 w-full focus:outline-none" placeholder="Search By Name"/>
+                  <input type="text" onChange={(e)=>setQuery({...query, name: e.target.value.toLocaleLowerCase()})} className="bg-[#F8F8F8] py-2 px-2 w-full focus:outline-none" placeholder="Search By Name" />
                 </div>
-                <div className="class">
-                  <input type="text"  className="bg-[#F8F8F8] py-2 px-2 w-full focus:outline-none" placeholder="Search By Class"/>
+                <div className="email">
+                  <input type="text" onChange={(e)=>setQuery({...query, email: e.target.value.toLocaleLowerCase()})}  className="bg-[#F8F8F8] py-2 px-2 w-full focus:outline-none" placeholder="Search By Email"/>
+                </div>
+                <div className="phone">
+                  <input type="text"  onChange={(e)=>setQuery({...query, phone: e.target.value.toLocaleLowerCase()})} className="bg-[#F8F8F8] py-2 px-2 w-full focus:outline-none" placeholder="Search By Phone"/>
                 </div>
                 <div className="search-btn">
                   <button className="bg-[#042954] py-2 px-10 rounded lg font-bold text-white w-full hover:bg-[#3D5EE1]">Search</button>
@@ -60,7 +65,11 @@ const AllParents = () => {
                 </tr>
               </thead>
               <tbody className="text-center">
-                {parents?.map((parents, i) => (
+                {parents?.filter(parents=>parents?.name?.toLowerCase().includes(query.name))
+              .filter(parents=>parents?.email?.toLowerCase().includes(query.email))
+              .filter(parents=>parents?.phone?.toLowerCase().includes(query.phone))
+                
+                .map((parents, i) => (
                   <tr key={parents._id} className={`${i % 2 ? "" : "active"}`}>
                     <td className="">
                       <div className="avatar">
