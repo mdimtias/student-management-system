@@ -3,6 +3,7 @@ import male from "./../../../../assets/Students/male.png";
 import female from "./../../../../assets/Students/female.png";
 import "./AllStudents.css";
 import { useTitle } from "../../../../hooks/useTitle";
+import DashboardTopHeader from "../../DashboardTopHeader/DashboardTopHeader";
 const AllStudents = () => {
   useTitle("All Students")
   const [students, setStudents] = useState<any[]>([]);
@@ -26,17 +27,7 @@ const AllStudents = () => {
 
   return (
     <div className="all-students-section py-5 px-7">
-      <div className="breadcrumb-area flex justify-between pb-6">
-        <h2 className="text-left text-bold text-black text-2xl">
-          All Students
-        </h2>
-        <div className="flex gap-1">
-          <h3 className="text-left text-bold text-black text-2xl">Student</h3>
-          <h4 className="text-left text-bold text-[#6C757D] text-2xl">
-            / All Students
-          </h4>
-        </div>
-      </div>
+      <DashboardTopHeader name="Students" title="All Students"></DashboardTopHeader>
       <div>
         <div className="bg-white p-5">
           <div className="search-all-student pb-5">

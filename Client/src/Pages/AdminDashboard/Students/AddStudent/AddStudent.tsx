@@ -5,6 +5,8 @@ import { imgUpload } from '../../../../hooks/imageUpload';
 import { useTitle } from '../../../../hooks/useTitle';
 import { Input } from '../../../StyleComponent/Input.styled';
 import { Label } from '../../../StyleComponent/Label.styled';
+import { Textarea } from '../../../StyleComponent/Textarea.styled';
+import DashboardTopHeader from '../../DashboardTopHeader/DashboardTopHeader';
 import "./AddStudent.css"
 const AddStudent = () => {
     useTitle("Add Students")
@@ -43,13 +45,7 @@ const AddStudent = () => {
      }
     return (
         <div className='add-student-section px-5 py-6'>
-            <div className="breadcrumb-area flex justify-between pb-6">
-                <h2 className="text-left text-bold text-black text-2xl">Add Student</h2>
-                <div className='flex gap-1'>
-                    <h3 className="text-left text-bold text-black text-2xl">Student</h3>
-                    <h4 className="text-left text-bold text-[#6C757D] text-2xl">/ Add Student</h4>
-                </div>
-            </div>
+            <DashboardTopHeader name="Student" title="Add Student"></DashboardTopHeader>
             <form action="" onSubmit={handleSubmit(onSubmit)} className='px-5 py-10 bg-white'>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     <div className="form-input-container">
@@ -167,10 +163,10 @@ const AddStudent = () => {
                 </div>
               <div className="flex">
                     <div className="form-input-container">
-                        <textarea className="border border-solid  border-slate-300 hover:border-[#3d5ee1]  focus:border-[#3d5ee1] student-form-textarea p-3 w-[400px]" {...register("bio")}  placeholder="Bio"></textarea>
+                        <Textarea className="" {...register("bio")}  placeholder="Bio"></Textarea>
                     </div>
                     <div className="text-left">
-                        <Label htmlFor="" className='font-bold text-black text-lg'>Upload Student Photo (150 X 150) <span className='text-red-500 mt-5'>*</span></Label>
+                        <label htmlFor="" className='font-bold text-black text-lg'>Upload Student Photo (150 X 150) <span className='text-red-500 mt-5'>*</span></label>
                          <input type="file" {...register("studentPhoto")}  accept="image/*" className="mt-3 file-input w-full" />
                     </div>
               </div>

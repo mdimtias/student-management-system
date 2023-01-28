@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useTitle } from '../../../../hooks/useTitle';
 import male from "./../../../../assets/Students/male.png";
 import female from "./../../../../assets/Students/female.png";
+import DashboardTopHeader from '../../DashboardTopHeader/DashboardTopHeader';
 
 const AllParents = () => {
     useTitle("All parentss")
@@ -18,17 +19,7 @@ const AllParents = () => {
     }, []);
     return (
         <div className="all-students-section py-5 px-7">
-        <div className="breadcrumb-area flex justify-between pb-6">
-          <h2 className="text-left text-bold text-black text-2xl">
-            All Parents
-          </h2>
-          <div className="flex gap-1">
-            <h3 className="text-left text-bold text-black text-2xl">Parents</h3>
-            <h4 className="text-left text-bold text-[#6C757D] text-2xl">
-              / All Parents
-            </h4>
-          </div>
-        </div>
+       <DashboardTopHeader name="Parents" title="All Parents"></DashboardTopHeader>
         <div>
           <div className="bg-white p-5">
             <div className="search-all-student pb-5">

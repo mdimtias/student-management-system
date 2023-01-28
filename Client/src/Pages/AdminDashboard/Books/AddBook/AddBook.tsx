@@ -4,6 +4,9 @@ import { toast } from 'react-hot-toast';
 import { imgUpload } from '../../../../hooks/imageUpload';
 import { useTitle } from '../../../../hooks/useTitle';
 import "./../../Students/AllStudents/AllStudents.css";
+import { Input } from '../../../StyleComponent/Input.styled';
+import { Label } from '../../../StyleComponent/Label.styled';
+import DashboardTopHeader from '../../DashboardTopHeader/DashboardTopHeader';
 const AddBook = () => {
     useTitle("Add Books")
      const { register, handleSubmit, reset, formState: { errors } } = useForm();
@@ -41,32 +44,26 @@ const AddBook = () => {
      }
     return (
         <div className='add-student-section px-5 py-6'>
-            <div className="breadcrumb-area flex justify-between pb-6">
-                <h2 className="text-left text-bold text-black text-2xl">Add Student</h2>
-                <div className='flex gap-1'>
-                    <h3 className="text-left text-bold text-black text-2xl">Student</h3>
-                    <h4 className="text-left text-bold text-[#6C757D] text-2xl">/ Add Student</h4>
-                </div>
-            </div>
+           <DashboardTopHeader name="Book" title="Add Book"></DashboardTopHeader>
             <form action="" onSubmit={handleSubmit(onSubmit)} className='px-5 py-10 bg-white'>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     <div className="form-input-container">
-                        <label htmlFor="">Book Name <span className='text-red-500'>*</span></label>
-                        <input type="text" placeholder="Enter Book Name" {...register("name", { required: true })} className="input form-input-style w-full" />
+                        <Label htmlFor="">Book Name <span className='text-red-500'>*</span></Label>
+                        <Input type="text" placeholder="Enter Book Name" {...register("name", { required: true })} className="input form-input-style w-full" />
                         {errors.name && <span className="text-red-500 text-left block text-bold">Book Name is required</span>}
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Subjects <span className='text-red-500'>*</span></label>
-                        <input type="text" placeholder="Enter Subjects" {...register("subject", { required: true })} className="input form-input-style w-full" />
+                        <Label htmlFor="">Subjects <span className='text-red-500'>*</span></Label>
+                        <Input type="text" placeholder="Enter Subjects" {...register("subject", { required: true })} className="input form-input-style w-full" />
                         {errors.subject && <span className="text-red-500 text-left block text-bold">Subject Name is required</span>}
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Writer Name <span className='text-red-500'>*</span></label>
-                        <input type="text" placeholder="Enter Writer Name" {...register("writerName", { required: true })} className="input form-input-style w-full" />
+                        <Label htmlFor="">Writer Name <span className='text-red-500'>*</span></Label>
+                        <Input type="text" placeholder="Enter Writer Name" {...register("writerName", { required: true })} className="input form-input-style w-full" />
                         {errors.writerName && <span className="text-red-500 text-left block text-bold">Writer Name is required</span>}
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Class <span className='text-red-500'>*</span></label>
+                        <Label htmlFor="">Class <span className='text-red-500'>*</span></Label>
                         <select className="form-input-style select w-full" {...register("class", { required: true })} defaultValue="">
                             <option value="" disabled >Please Select Class *</option>
                             <option value="Play">Play</option>
@@ -88,18 +85,18 @@ const AddBook = () => {
                     </div>
                     
                     <div className="form-input-container">
-                        <label htmlFor="">ID Number<span className='text-red-500'>*</span></label>
-                        <input type="number" placeholder="Enter ID Number" {...register("idNumber", { required: true })} className="input form-input-style w-full" />
+                        <Label htmlFor="">ID Number<span className='text-red-500'>*</span></Label>
+                        <Input type="number" placeholder="Enter ID Number" {...register("idNumber", { required: true })} className="input form-input-style w-full" />
                         {errors.idNumber && <span className="text-red-500 text-left block text-bold">ID Number is required</span>}
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Published Date<span className='text-red-500'>*</span></label>
-                        <input type="date" placeholder="Enter Published Date" {...register("publishedDate", { required: true })} className="input form-input-style w-full" />
+                        <Label htmlFor="">Published Date<span className='text-red-500'>*</span></Label>
+                        <Input type="date" placeholder="Enter Published Date" {...register("publishedDate", { required: true })} className="input form-input-style w-full" />
                         {errors.publishedDate && <span className="text-red-500 text-left block text-bold">Published Date is required</span>}
                     </div>
                     <div className="form-input-container">
-                        <label htmlFor="">Upload Date<span className='text-red-500'>*</span></label>
-                        <input type="date" placeholder="Upload Date" {...register("uploadDate", { required: true })} className="input form-input-style w-full" />
+                        <Label htmlFor="">Upload Date<span className='text-red-500'>*</span></Label>
+                        <Input type="date" placeholder="Upload Date" {...register("uploadDate", { required: true })} className="input form-input-style w-full" />
                         {errors.uploadDate && <span className="text-red-500 text-left block text-bold">Upload Date is required</span>}
                     </div>
                    
@@ -107,7 +104,7 @@ const AddBook = () => {
               <div className="flex">
                     <div className="text-left">
                         <label htmlFor="" className='font-bold text-black text-lg'>Upload Book Photo <span className='text-red-500 mt-5'>*</span></label>
-                        <input type="file" {...register("bookCoverPhoto")}  accept="image/*" className="mt-3 file-input w-full" />
+                        <Input type="file" {...register("bookCoverPhoto")}  accept="image/*" className="mt-3 file-input w-full" />
                     </div>
               </div>
                <div className="form-button">
