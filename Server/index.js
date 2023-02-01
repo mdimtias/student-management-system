@@ -265,6 +265,26 @@ app.get("/parents/:id", async (req, res)=>{
   }
 })
 
+// Delete Parents Data By Id
+app.delete("/parents/:id", async (req, res)=>{
+  try{
+    const id = req.params.id;
+    const filter = {_id: ObjectId(id)};
+    const result = await Parents.deleteOne(filter);
+    res.send({
+      data: result, 
+      success: true,
+      message: "Delete Parent Data Successfully!"
+    })
+  }catch(error){
+    res.send({
+      data: error.message, 
+      success: false,
+      message: "Fail to Delete Parent data!"
+    })
+  }
+})
+
 // Get All Parents Data
 app.get("/parents",  async (req, res) => {
   try {

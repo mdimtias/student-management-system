@@ -8,6 +8,7 @@ import { Input } from "../../../StyleComponent/Input.styled";
 import { Label } from "../../../StyleComponent/Label.styled";
 import { Textarea } from "../../../StyleComponent/Textarea.styled";
 import Loader from "../../../../SharedPage/Loader/Loader";
+import { ImCross } from "react-icons/im";
 
 type EditProps = {
   id: string;
@@ -30,12 +31,18 @@ const EditParents = ({
 
   const onSubmit = async (data: any) => {
     setLoading(true);
-    if (data.parentsPhoto[0]) {
+    if (data.parentsPhoto[0] && data.parentsPhoto[0].name) {
       const image = data.parentsPhoto[0];
       const formData = new FormData();
       formData.append("image", image);
-      const imageUploadServer = await imgUpload(formData);
+      const imageUploadServer = await imgUpload(formData).catch((error) => {
+        console.log(error);
+        toast.error("Update Parent Photo Fail");
+        setLoading(false);
+        setEditParentModal(false);
+      });
       data.parentsPhoto = imageUploadServer;
+    } else if (data.parentsPhoto) {
     } else {
       data.parentsPhoto = "";
     }
@@ -107,8 +114,8 @@ const EditParents = ({
             className="px-5 pt-5 pb-5 bg-white"
           >
             <div className="absolute top-2 right-2 z-10">
-              <label htmlFor="my-modal" className="btn">
-                X
+              <label htmlFor="my-modal" className="btn rounded-full">
+                <ImCross></ImCross>
               </label>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
@@ -332,11 +339,11 @@ const EditParents = ({
                     className="mt-3 file-input w-full"
                   />
                 </div>
-                <div className="avatar justify-center">
+                {/* <div className="avatar justify-center">
                   <div className="w-24 rounded-full">
                     <img src={parent?.parentsPhoto} alt="" />
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="form-button">

@@ -6,11 +6,16 @@ import DashboardTopHeader from '../../DashboardTopHeader/DashboardTopHeader';
 import { useQuery } from '@tanstack/react-query';
 import Loader from '../../../../SharedPage/Loader/Loader';
 import EditParents from '../EditParents/EditParents';
+import { toast } from 'react-hot-toast';
+import DeleteModal from '../../../../SharedPage/DeleteModal/DeleteModal';
 
 const AllParents = () => {
     useTitle("All parents")
     const [id, setId] = useState("")
     const [editParentModal, setEditParentModal] = useState(false)
+    const [deleteModal, setDeleteModal] = useState(false)
+    const [name, setName] = useState("")
+    const [loading, setLoading] = useState(false);
     const [query, setQuery] = useState({
       name: "",
       email: "",
@@ -33,6 +38,44 @@ const AllParents = () => {
     setId(id);
     setEditParentModal(true)
   }
+  // handleDelete(parents.name, parents._id), 
+const handleDeleteModal= (name:string, id:string )=>{
+  setDeleteModal(true);
+  setId(id);
+  setName(name)
+}
+  const handleDelete = (name:string, id:string)=>{
+    setDeleteModal(true);
+    setName(name);
+    fetch(`${process.env.REACT_APP_API_URL}/parents/${id}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+        authorization: `${localStorage.getItem("token")}`,
+      }
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.data.acknowledged) {
+          toast.success("Delete Parent Successful");
+          setLoading(false);
+          setEditParentModal(false);
+          refetch();
+        }
+        if (data.success === false) {
+          toast.error("Delete Parent Fail");
+          setLoading(false);
+          setEditParentModal(false);
+        }
+      })
+      .catch((error) => {
+        toast.error("Delete Parent Fail");
+        setLoading(false);
+        setEditParentModal(false);
+      });
+  };
+  
     return (
       <>
       {editParentModal && <EditParents id={id} setEditParentModal={setEditParentModal} refetch={refetch}></EditParents>}
@@ -104,7 +147,7 @@ const AllParents = () => {
                     <td>{parents.dateOfBirth}</td>
                     <td>{parents.phone}</td>
                     <td>{parents.email}</td>
-                    <td><label htmlFor="my-modal" className="btn" onClick={()=>handleEdit(parents._id)}>Edit</label> || Delete</td>
+                    <td><label htmlFor="my-modal" className="btn" onClick={()=>handleEdit(parents._id)}>Edit</label> || <label htmlFor="delete-modal" className="btn" onClick={()=>handleDeleteModal(parents?.name, parents?._id)}>Delete</label></td>
                   </tr>
                 ))}
               </tbody>
@@ -115,6 +158,9 @@ const AllParents = () => {
        
           </div>
         </div>
+
+{deleteModal && <DeleteModal name={name} id={id} handleDelete={handleDelete}></DeleteModal>}
+
       </div>
       </>
     );
