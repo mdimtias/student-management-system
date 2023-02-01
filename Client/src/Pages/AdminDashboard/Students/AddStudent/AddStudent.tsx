@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { imgUpload } from '../../../../hooks/imageUpload';
@@ -11,8 +11,10 @@ import "./AddStudent.css"
 const AddStudent = () => {
     useTitle("Add Students")
      const { register, handleSubmit, reset, formState: { errors } } = useForm();
+     const [loading, setLoading] = useState(false)
     
      const onSubmit =async (data:any) =>{
+        setLoading(true);
         if(data.studentPhoto[0]){
             const image = data.studentPhoto[0];
             const formData = new FormData();
@@ -26,7 +28,8 @@ const AddStudent = () => {
         fetch(`${process.env.REACT_APP_API_URL}/students`, {
             method: "POST",
             headers: {
-                "content-type": "application/json"
+                "content-type": "application/json",
+                'authorization': `${localStorage.getItem("token")}`
             },
             body: JSON.stringify(data)
         })
@@ -35,12 +38,12 @@ const AddStudent = () => {
            if(data.data.acknowledged){
             toast.success("Add Student Successful")
             reset();
-            console.log(data)
            }
+           setLoading(false)
         })
         .catch(error=>{
-            console.log(error)
             toast.error("Student Add Fail")
+            setLoading(false)
         })
      }
     return (
@@ -171,7 +174,7 @@ const AddStudent = () => {
                     </div>
               </div>
                <div className="form-button">
-                <button className='save-btn pr-3'>Save</button>
+                <button className='save-btn pr-3' disabled={loading}>{loading? "Saving..." : "Save"}</button>
                 <button className='reset-btn' onClick={() =>reset()}>Reset</button>
                </div>
             </form>

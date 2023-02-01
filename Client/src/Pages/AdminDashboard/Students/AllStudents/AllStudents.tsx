@@ -1,29 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import male from "./../../../../assets/Students/male.png";
 import female from "./../../../../assets/Students/female.png";
 import "./AllStudents.css";
 import { useTitle } from "../../../../hooks/useTitle";
 import DashboardTopHeader from "../../DashboardTopHeader/DashboardTopHeader";
+import { useQuery } from "@tanstack/react-query";
+import Loader from "../../../../SharedPage/Loader/Loader";
 const AllStudents = () => {
   useTitle("All Students")
-  const [students, setStudents] = useState<any[]>([]);
   const [query, setQuery] = useState({
     name: "",
     roll: "",
     class: ""
   })
-  // const { isLoading, error, data: students=[] } = useQuery({
-  //     queryKey: ['students'],
-  //     queryFn: () =>
-  //       fetch('http://localhost:8080/students')
-  //       .then((res) => res.json()),
-  //   })
-  //   console.log(students)
-  useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/students`)
-      .then((res) => res.json())
-      .then((data) => setStudents(data.data));
-  }, []);
+
+  const { isLoading, error, data: students=[] } = useQuery({
+      queryKey: ['students'],
+      queryFn: async () =>
+        await fetch(`${process.env.REACT_APP_API_URL}/students`, {
+          headers: {
+            'authorization': `${localStorage.getItem("token")}`,
+            'Content-Type': 'application/json'
+          }
+        })
+        .then((res) => res.json())
+        .then((data)=>data.data)
+  })
 
   return (
     <div className="all-students-section py-5 px-7">
@@ -66,10 +68,10 @@ const AllStudents = () => {
               </tr>
             </thead>
             <tbody>
-              {students?.filter(student=>student?.name?.toLowerCase().includes(query.name))
-              .filter(student=>student?.roll?.toLowerCase().includes(query.roll))
-              .filter(student=>student?.class?.toLowerCase().includes(query.class))
-              .map((student, i) => (
+              {students?.filter((student: any)=>student?.name?.toLowerCase().includes(query.name))
+              .filter((student: any)=>student?.roll?.toLowerCase().includes(query.roll))
+              .filter((student: any)=>student?.class?.toLowerCase().includes(query.class))
+              .map((student: any, i: any) => (
                 <tr key={student._id} className={`${i % 2 ? "" : "active"}`}>
                   <td>{student.roll}</td>
                   <td className="">
@@ -102,6 +104,8 @@ const AllStudents = () => {
               ))}
             </tbody>
           </table>
+          {isLoading && <Loader></Loader>}
+          <>{error && <p className="font-bold text-lg pt-5">Something went wrong</p>}</>
           </div>
      
         </div>

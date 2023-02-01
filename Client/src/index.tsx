@@ -6,15 +6,21 @@ import reportWebVitals from './reportWebVitals';
 import AuthProvider from './contexts/AuthProvider/AuthProvider';
 import 'react-multi-carousel/lib/styles.css';
 import { ProSidebarProvider } from 'react-pro-sidebar';
+import {
+  QueryClient, QueryClientProvider
+} from '@tanstack/react-query'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+const queryClient = new QueryClient()
 root.render(
   <React.StrictMode>
     <AuthProvider>
     <ProSidebarProvider>
+    <QueryClientProvider client={queryClient}>
        <App />
+      </QueryClientProvider>
     </ProSidebarProvider>
     </AuthProvider>
   </React.StrictMode>

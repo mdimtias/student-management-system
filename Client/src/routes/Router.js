@@ -23,6 +23,8 @@ import AddParents from "../Pages/AdminDashboard/Parents/AddParents/AddParents";
 import AddBook from "../Pages/AdminDashboard/Books/AddBook/AddBook";
 import AllBooks from "../Pages/AdminDashboard/Books/AllBooks/AllBooks";
 import AdminDashboardHome from "../Pages/AdminDashboard/AdminDashboardHome/AdminDashboardHome";
+import AllClasses from "../Pages/AdminDashboard/Class/AllClasses/AllClasses";
+import AddNewClass from "../Pages/AdminDashboard/Class/AddNewClass/AddNewClass";
 export const router = createBrowserRouter([
     {
         path: "/", 
@@ -123,6 +125,14 @@ export const router = createBrowserRouter([
             {
                 path: "/admin/all-books", 
                 element: <AllBooks></AllBooks>
+            },
+            {
+                path: "/admin/all-classes", 
+                element: <AllClasses></AllClasses>
+            },
+            {
+                path: "/admin/add-classes", 
+                element: <AddNewClass></AddNewClass>
             },
            
 

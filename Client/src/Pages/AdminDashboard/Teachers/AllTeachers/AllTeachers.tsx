@@ -1,22 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useTitle } from '../../../../hooks/useTitle';
 import male from "./../../../../assets/Students/male.png";
 import female from "./../../../../assets/Students/female.png";
 import DashboardTopHeader from '../../DashboardTopHeader/DashboardTopHeader';
+import { useQuery } from '@tanstack/react-query';
+import Loader from '../../../../SharedPage/Loader/Loader';
 
 const AllTeachers = () => {
     useTitle("All Teachers")
-    const [teachers, setTeachers] = useState<any[]>([]);
     const [query, setQuery] = useState({
       name: "",
       email: "",
       parentName: ""
     })
-    useEffect(() => {
-      fetch(`${process.env.REACT_APP_API_URL}/teachers`)
+    const { isLoading, error, data: teachers=[] } = useQuery({
+      queryKey: ['teachers'],
+      queryFn: async () =>
+        await fetch(`${process.env.REACT_APP_API_URL}/teachers`, {
+          headers: {
+            'authorization': `${localStorage.getItem("token")}`,
+            'Content-Type': 'application/json'
+          }
+        })
         .then((res) => res.json())
-        .then((data) => setTeachers(data.data));
-    }, []);
+        .then((data)=>data.data)
+  })
+  console.log(teachers)
     return (
         <div className="all-students-section py-5 px-7">
        <DashboardTopHeader name="Teachers" title="All Teachers"></DashboardTopHeader>
@@ -55,10 +64,10 @@ const AllTeachers = () => {
                 </tr>
               </thead>
               <tbody className="text-center">
-                {teachers?.filter(teacher=>teacher?.name?.toLowerCase().includes(query.name))
-              .filter(teacher=>teacher?.email?.toLowerCase().includes(query.email))
-              .filter(teacher=>teacher?.fatherName?.toLowerCase().includes(query.parentName))
-                .map((teacher, i) => (
+                {teachers?.filter((teacher:any)=>teacher?.name?.toLowerCase().includes(query.name))
+              .filter((teacher:any)=>teacher?.email?.toLowerCase().includes(query.email))
+              .filter((teacher:any)=>teacher?.fatherName?.toLowerCase().includes(query.parentName))
+                .map((teacher:any, i:any) => (
                   <tr key={teacher._id} className={`${i % 2 ? "" : "active"}`}>
                     <td className="">
                       <div className="avatar">
@@ -88,6 +97,8 @@ const AllTeachers = () => {
                 ))}
               </tbody>
             </table>
+            {isLoading && <Loader></Loader>}
+            <>{error && <p className="font-bold text-lg pt-5">Something went wrong</p>}</>
             </div>
        
           </div>

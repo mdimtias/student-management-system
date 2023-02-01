@@ -3,9 +3,6 @@
     margin-bottom: 30px;
     padding: 0 15px;
 }
-.student-form-textarea{
-    height: 100px;
-}
 /* Style Button  */
 .save-btn, .reset-btn{
     background-color: #042954;

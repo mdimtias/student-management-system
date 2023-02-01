@@ -21,6 +21,7 @@ const Students = client.db("secondHandLaptop").collection("students");
 const Teachers = client.db("secondHandLaptop").collection("teachers");
 const Parents = client.db("secondHandLaptop").collection("parents");
 const Books = client.db("secondHandLaptop").collection("books");
+const Classes = client.db("secondHandLaptop").collection("classes");
 
 async function run() {
   try {
@@ -57,6 +58,24 @@ app.post("/createJwtToken", (req, res) => {
   }
 });
 
+// Verify JWT Token
+function verifyJwt(req, res, next) {
+  const authHeader = req.headers.authorization;
+  if (!authHeader) {
+    return res.status(401).send({ message: "unauthorized" });
+  }
+  const token = authHeader;
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(401).send({ massage: "unauthorized" });
+    }
+
+    req.decoded = decoded;
+    next();
+  });
+}
+
 // Save User Info & Generate JWT Token
 app.put("/users/:email", async (req, res) => {
   try {
@@ -88,7 +107,7 @@ app.put("/users/:email", async (req, res) => {
 });
 
 // Get All User Data
-app.get("/users", async (req, res) => {
+app.get("/users", verifyJwt, async (req, res) => {
   try {
     const query = {};
     const result = await Users.find({}).toArray();
@@ -107,7 +126,7 @@ app.get("/users", async (req, res) => {
 });
 
 // Added New Students
-app.post("/students", async (req, res) => {
+app.post("/students", verifyJwt, async (req, res) => {
   try {
     const student = req.body;
     const result = await Students.insertOne(student);
@@ -126,7 +145,7 @@ app.post("/students", async (req, res) => {
 });
 
 // Get All Students Data
-app.get("/students", async (req, res) => {
+app.get("/students", verifyJwt, async (req, res) => {
   try {
     const query = {};
     const result = await Students.find(query).toArray();
@@ -145,7 +164,7 @@ app.get("/students", async (req, res) => {
 });
 
 // Added New Teachers
-app.post("/teachers", async (req, res) => {
+app.post("/teachers", verifyJwt, async (req, res) => {
   try {
     const teacher = req.body;
     const result = await Teachers.insertOne(teacher);
@@ -164,7 +183,7 @@ app.post("/teachers", async (req, res) => {
 });
 
 // Get All Teachers Data
-app.get("/teachers", async (req, res) => {
+app.get("/teachers", verifyJwt, async (req, res) => {
   try {
     const query = {};
     const result = await Teachers.find(query).toArray();
@@ -183,7 +202,7 @@ app.get("/teachers", async (req, res) => {
 });
 
 // Added New Parents
-app.post("/parents", async (req, res) => {
+app.post("/parents", verifyJwt, async (req, res) => {
   try {
     const teacher = req.body;
     const result = await Parents.insertOne(teacher);
@@ -201,8 +220,53 @@ app.post("/parents", async (req, res) => {
   }
 });
 
+// Update Parents Date 
+app.put("/parents/:id", async (req, res)=>{
+  try{
+    const parent = req.body;
+    const id = req.params.id;
+    const filter = {_id: ObjectId(id)};
+    const option = {upsert: true};
+    const updateDoc = {
+      $set: parent
+    }
+    const result = await Parents.updateOne(filter, updateDoc, option)
+    res.send({
+      data: result, 
+      success: true,
+      message: "Update Parent Successfully!"
+    })
+  }catch(error){
+    res.send({
+      data: error.message, 
+      success: false,
+      message: "Fail Update Parent!"
+    })
+  }
+})
+
+// Find Parents Data By Id
+app.get("/parents/:id", async (req, res)=>{
+  try{
+    const id = req.params.id;
+    const filter = {_id: ObjectId(id)};
+    const result = await Parents.find(filter).toArray();
+    res.send({
+      data: result, 
+      success: true,
+      message: "Find Parent Data Successfully!"
+    })
+  }catch(error){
+    res.send({
+      data: error.message, 
+      success: false,
+      message: "Fail to find Parent data!"
+    })
+  }
+})
+
 // Get All Parents Data
-app.get("/parents", async (req, res) => {
+app.get("/parents",  async (req, res) => {
   try {
     const query = {};
     const result = await Parents.find(query).toArray();
@@ -220,34 +284,34 @@ app.get("/parents", async (req, res) => {
   }
 });
 
-// Added New Books
-app.post("/books", async (req, res) => {
+// Added New Classes
+app.post("/classes", verifyJwt, async (req, res) => {
   try {
-    const teacher = req.body;
-    const result = await Books.insertOne(teacher);
+    const classes = req.body;
+    const result = await Classes.insertOne(classes);
     res.send({
       data: result,
       success: true,
-      message: "Added New Book Successful",
+      message: "Added New Classes Successful",
     });
   } catch (error) {
     res.send({
       data: error.message,
       success: false,
-      message: "Fail to Added New Book",
+      message: "Fail to Added New Classes",
     });
   }
 });
 
 // Get All Books Data
-app.get("/books", async (req, res) => {
+app.get("/classes", async (req, res) => {
   try {
     const query = {};
-    const result = await Books.find(query).toArray();
+    const result = await Classes.find(query).toArray();
     res.send({
       data: result,
       success: true,
-      message: "Successfully find the all Book data",
+      message: "Successfully find the all Classes data",
     });
   } catch (error) {
     res.send({

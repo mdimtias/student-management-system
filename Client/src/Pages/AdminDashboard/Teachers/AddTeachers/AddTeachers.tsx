@@ -1,17 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 import { imgUpload } from '../../../../hooks/imageUpload';
 import { useTitle } from '../../../../hooks/useTitle';
 import { Input } from '../../../StyleComponent/Input.styled';
 import { Label } from '../../../StyleComponent/Label.styled';
+import { Textarea } from '../../../StyleComponent/Textarea.styled';
+
 import DashboardTopHeader from '../../DashboardTopHeader/DashboardTopHeader';
 
 const AddTeachers = () => {
     useTitle("Add Teachers")
+    const [loading, setLoading] = useState(false)
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
    
     const onSubmit =async (data:any) =>{
+        setLoading(true)
        if(data.teacherPhoto[0]){
            const image = data.teacherPhoto[0];
            const formData = new FormData();
@@ -25,7 +29,8 @@ const AddTeachers = () => {
        fetch(`${process.env.REACT_APP_API_URL}/teachers`, {
            method: "POST",
            headers: {
-               "content-type": "application/json"
+               "content-type": "application/json",
+               'authorization': `${localStorage.getItem("token")}`
            },
            body: JSON.stringify(data)
        })
@@ -34,12 +39,13 @@ const AddTeachers = () => {
           if(data.data.acknowledged){
            toast.success("Add Teachers Successful")
            reset();
-           console.log(data)
+           setLoading(false)
           }
        })
        .catch(error=>{
            console.log(error)
            toast.error("Teachers Add Fail")
+           setLoading(false)
        })
     }
     return (
@@ -119,7 +125,7 @@ const AddTeachers = () => {
                 </div>
               <div className="flex">
                     <div className="form-input-container">
-                        <textarea className="form-input-style student-form-textarea p-3 w-[400px]" {...register("bio")}  placeholder="Bio"></textarea>
+                        <Textarea className="form-input-style student-form-textarea p-3 w-[400px]" {...register("bio")}  placeholder="Bio"></Textarea>
                     </div>
                     <div className="text-left">
                         <label htmlFor="" className='font-bold text-black text-lg'>Upload Student Photo (150 X 150) <span className='text-red-500 mt-5'>*</span></label>
@@ -127,7 +133,7 @@ const AddTeachers = () => {
                     </div>
               </div>
                <div className="form-button">
-                <button className='save-btn pr-3'>Save</button>
+                <button className='save-btn pr-3' disabled={loading}>{loading? "Saving..." : "Save"}</button>
                 <button className='reset-btn' onClick={() =>reset()}>Reset</button>
                </div>
             </form>

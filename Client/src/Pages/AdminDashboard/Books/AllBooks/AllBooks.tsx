@@ -1,17 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useTitle } from '../../../../hooks/useTitle';
 import male from "./../../../../assets/Students/male.png";
 import female from "./../../../../assets/Students/female.png";
 import DashboardTopHeader from '../../DashboardTopHeader/DashboardTopHeader';
+import { useQuery } from '@tanstack/react-query';
+import Loader from '../../../../SharedPage/Loader/Loader';
 
 const AllBooks = () => {
     useTitle("All Books")
-    const [books, setBooks] = useState<any[]>([]);
-    useEffect(() => {
-      fetch(`${process.env.REACT_APP_API_URL}/books`)
+    const [query, setQuery] = useState({
+      id: "",
+      name: "",
+      writer: ""
+    })
+    const { isLoading, error, data: books=[] } = useQuery({
+      queryKey: ['books'],
+      queryFn: async () =>
+        await fetch(`${process.env.REACT_APP_API_URL}/books`, {
+          headers: {
+            'authorization': `${localStorage.getItem("token")}`,
+            'Content-Type': 'application/json'
+          }
+        })
         .then((res) => res.json())
-        .then((data) => setBooks(data.data));
-    }, []);
+        .then((data)=>data.data)
+  })
     return (
         <div className="all-students-section py-5 px-7">
       <DashboardTopHeader name="Books" title="All Books"></DashboardTopHeader>
@@ -21,13 +34,13 @@ const AllBooks = () => {
               <h2 className="font-bold text-2xl pb-5">All Books</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
                 <div className="roll">
-                  <input type="text" className="bg-[#F8F8F8] py-2 px-2 w-full focus:outline-none" placeholder="Search By Roll Number" />
+                  <input type="text"  onChange={(e)=>setQuery({...query, id: e.target.value.toLocaleLowerCase()})} className="bg-[#F8F8F8] py-2 px-2 w-full focus:outline-none" placeholder="Search By ID Number" />
                 </div>
                 <div className="name">
-                  <input type="text"  className="bg-[#F8F8F8] py-2 px-2 w-full focus:outline-none" placeholder="Search By Name"/>
+                  <input type="text"  onChange={(e)=>setQuery({...query, name: e.target.value.toLocaleLowerCase()})}  className="bg-[#F8F8F8] py-2 px-2 w-full focus:outline-none" placeholder="Search By Name"/>
                 </div>
                 <div className="class">
-                  <input type="text"  className="bg-[#F8F8F8] py-2 px-2 w-full focus:outline-none" placeholder="Search By Class"/>
+                  <input type="text"  onChange={(e)=>setQuery({...query, writer: e.target.value.toLocaleLowerCase()})}  className="bg-[#F8F8F8] py-2 px-2 w-full focus:outline-none" placeholder="Search By Writer"/>
                 </div>
                 <div className="search-btn">
                   <button className="bg-[#042954] py-2 px-10 rounded lg font-bold text-white w-full hover:bg-[#3D5EE1]">Search</button>
@@ -50,7 +63,11 @@ const AllBooks = () => {
                 </tr>
               </thead>
               <tbody className="text-center">
-                {books?.map((book, i) => (
+                {books?.filter((book:any)=>book?.name?.toLowerCase().includes(query.name))
+              .filter((book:any)=>book?.idNumber?.toLowerCase().includes(query.id))
+              .filter((book:any)=>book?.writerName?.toLowerCase().includes(query.writer))
+                
+                .map((book:any, i:any) => (
                   <tr key={book._id} className={`${i % 2 ? "" : "active"}`}>
                     <td className="">
                       <div className="avatar">
@@ -80,6 +97,8 @@ const AllBooks = () => {
                 ))}
               </tbody>
             </table>
+            {isLoading && <Loader></Loader>}
+            <>{error && <p className="font-bold text-lg pt-5">Something went wrong</p>}</>
             </div>
        
           </div>

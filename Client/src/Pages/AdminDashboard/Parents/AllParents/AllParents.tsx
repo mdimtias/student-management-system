@@ -1,23 +1,41 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useTitle } from '../../../../hooks/useTitle';
 import male from "./../../../../assets/Students/male.png";
 import female from "./../../../../assets/Students/female.png";
 import DashboardTopHeader from '../../DashboardTopHeader/DashboardTopHeader';
+import { useQuery } from '@tanstack/react-query';
+import Loader from '../../../../SharedPage/Loader/Loader';
+import EditParents from '../EditParents/EditParents';
 
 const AllParents = () => {
-    useTitle("All parentss")
-    const [parents, setParents] = useState<any[]>([]);
+    useTitle("All parents")
+    const [id, setId] = useState("")
+    const [editParentModal, setEditParentModal] = useState(false)
     const [query, setQuery] = useState({
       name: "",
       email: "",
       phone: ""
     })
-    useEffect(() => {
-      fetch(`${process.env.REACT_APP_API_URL}/parents`)
+    const { isLoading, error, refetch, data: parents = [] } = useQuery({
+      queryKey: ['parents'],
+      queryFn: async () =>
+        await fetch(`${process.env.REACT_APP_API_URL}/parents`, {
+          headers: {
+            'authorization': `${localStorage.getItem("token")}`,
+            'Content-Type': 'application/json'
+          }
+        })
         .then((res) => res.json())
-        .then((data) => setParents(data.data));
-    }, []);
+        .then((data)=>data.data)
+  })
+
+  const handleEdit = (id:string)=>{
+    setId(id);
+    setEditParentModal(true)
+  }
     return (
+      <>
+      {editParentModal && <EditParents id={id} setEditParentModal={setEditParentModal} refetch={refetch}></EditParents>}
         <div className="all-students-section py-5 px-7">
        <DashboardTopHeader name="Parents" title="All Parents"></DashboardTopHeader>
         <div>
@@ -56,11 +74,11 @@ const AllParents = () => {
                 </tr>
               </thead>
               <tbody className="text-center">
-                {parents?.filter(parents=>parents?.name?.toLowerCase().includes(query.name))
-              .filter(parents=>parents?.email?.toLowerCase().includes(query.email))
-              .filter(parents=>parents?.phone?.toLowerCase().includes(query.phone))
+                {parents?.filter((parent:any)=>parent?.name?.toLowerCase().includes(query.name))
+              .filter((parent:any)=>parent?.email?.toLowerCase().includes(query.email))
+              .filter((parent:any)=>parent?.phone?.toLowerCase().includes(query.phone))
                 
-                .map((parents, i) => (
+                .map((parents:any, i:any) => (
                   <tr key={parents._id} className={`${i % 2 ? "" : "active"}`}>
                     <td className="">
                       <div className="avatar">
@@ -86,16 +104,19 @@ const AllParents = () => {
                     <td>{parents.dateOfBirth}</td>
                     <td>{parents.phone}</td>
                     <td>{parents.email}</td>
-                    <td>Edit || Delete</td>
+                    <td><label htmlFor="my-modal" className="btn" onClick={()=>handleEdit(parents._id)}>Edit</label> || Delete</td>
                   </tr>
                 ))}
               </tbody>
             </table>
+            {isLoading && <Loader></Loader>}
+            <>{error && <p className="font-bold text-lg pt-5">Something went wrong</p>}</>
             </div>
        
           </div>
         </div>
       </div>
+      </>
     );
 };
 

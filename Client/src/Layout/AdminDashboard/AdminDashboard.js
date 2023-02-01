@@ -112,8 +112,8 @@ const AdminDashboard = () => {
                 label="Class"
                 icon={<MdHotelClass />}
               >
-               <MenuItem component={<Link to="./"/>}>All Class</MenuItem>
-               <MenuItem component={<Link to="./"/>}>Add New Class</MenuItem>
+               <MenuItem component={<Link to="./all-classes"/>}>All Class</MenuItem>
+               <MenuItem component={<Link to="./add-classes"/>}>Add New Class</MenuItem>
           </SubMenu>
           <MenuItem icon={<FaBook />}>Subject</MenuItem>
           <MenuItem icon={<RiHealthBookFill />}>Class Routing</MenuItem>
