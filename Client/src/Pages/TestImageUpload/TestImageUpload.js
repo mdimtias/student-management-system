@@ -3,15 +3,16 @@ import useImageUpload from "../../hooks/useImageUpload";
 
 const TestImageUpload = () => {
   const [file, setFile] = useState(null);
-  const { image, url, error, loading, uploadImage } = useImageUpload("profilePhoto");
+  const { url, error, loading, uploadImage } = useImageUpload("profilePhoto");
 
   const handleChange = (event) => {
     setFile(event.target.files[0]);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit =async  (event) => {
     event.preventDefault();
-    uploadImage(file);
+    await uploadImage(file);
+    console.log(url)
   };
 
   return (

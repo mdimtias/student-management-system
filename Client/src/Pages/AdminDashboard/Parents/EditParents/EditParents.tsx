@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { imgUpload } from "../../../../hooks/imageUpload";
 import { useTitle } from "../../../../hooks/useTitle";
 import { Input } from "../../../StyleComponent/Input.styled";
 import { Label } from "../../../StyleComponent/Label.styled";
 import { Textarea } from "../../../StyleComponent/Textarea.styled";
 import Loader from "../../../../SharedPage/Loader/Loader";
 import { ImCross } from "react-icons/im";
+import useImageUpload from "../../../../hooks/useImageUpload";
 
 type EditProps = {
   id: string;
@@ -22,6 +22,7 @@ const EditParents = ({
 }: EditProps) => {
   useTitle("Add Parents");
   const [loading, setLoading] = useState(false);
+  const [file, setFile] = useState<File | null>();
   const {
     register,
     handleSubmit,
@@ -29,22 +30,43 @@ const EditParents = ({
     formState: { errors },
   } = useForm();
 
+  const {
+    url,
+    error: imageError,
+    loading: imageLoading,
+    uploadImage,
+  } = useImageUpload("profilePhoto");
+
+  const {
+    isLoading,
+    error,
+    data: parent = [],
+  } = useQuery({
+    queryKey: ["parent", id],
+    queryFn: async () =>
+      await fetch(`${process.env.REACT_APP_API_URL}/parents/${id}`, {
+        headers: {
+          authorization: `${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          const removeId = data.data[0];
+          delete removeId._id;
+          reset(removeId);
+          return data.data[0];
+        }),
+  });
+
   const onSubmit = async (data: any) => {
     setLoading(true);
-    if (data.parentsPhoto[0] && data.parentsPhoto[0].name) {
-      const image = data.parentsPhoto[0];
-      const formData = new FormData();
-      formData.append("image", image);
-      const imageUploadServer = await imgUpload(formData).catch((error) => {
-        console.log(error);
-        toast.error("Update Parent Photo Fail");
-        setLoading(false);
-        setEditParentModal(false);
-      });
+    if (file && file.name) {
+      const imageUploadServer = await uploadImage(file);
       data.parentsPhoto = imageUploadServer;
-    } else if (data.parentsPhoto) {
+      console.log(imageUploadServer);
     } else {
-      data.parentsPhoto = "";
+      data.parentsPhoto = parent.parentPhoto;
     }
 
     fetch(`${process.env.REACT_APP_API_URL}/parents/${id}`, {
@@ -78,35 +100,14 @@ const EditParents = ({
       });
   };
 
-  const {
-    isLoading,
-    error,
-    data: parent = [],
-  } = useQuery({
-    queryKey: ["parent", id],
-    queryFn: async () =>
-      await fetch(`${process.env.REACT_APP_API_URL}/parents/${id}`, {
-        headers: {
-          authorization: `${localStorage.getItem("token")}`,
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          const removeId = data.data[0];
-          delete removeId._id;
-          reset(removeId);
-          return data.data[0];
-        }),
-  });
   return (
     <div>
       <>
         {error && <p>Something Went Wrong</p>}
         {isLoading && <Loader></Loader>}
       </>
-      <input type="checkbox" id="my-modal" className="modal-toggle" />
-      <div className="modal px-5 md:px-24 lg:px-64 overflow-y-auto max-h-full border border-red-500">
+      <input type="checkbox" id="edit-modal" className="modal-toggle" />
+      <div className="modal px-5 md:px-24 lg:px-64 overflow-y-auto max-h-full">
         <div className="modal-box w-11/12 max-w-5xl">
           <form
             action=""
@@ -114,7 +115,7 @@ const EditParents = ({
             className="px-5 pt-5 pb-5 bg-white"
           >
             <div className="absolute top-2 right-2 z-10">
-              <label htmlFor="my-modal" className="btn rounded-full">
+              <label htmlFor="edit-modal" className="btn rounded-full">
                 <ImCross></ImCross>
               </label>
             </div>
@@ -317,36 +318,47 @@ const EditParents = ({
                 )}
               </div>
             </div>
-            <div className="flex flex-col md:flex-row gap-0 md:gap-4">
-              <div className="relative px-4 text-left">
-              <Textarea
+            <div className="">
+              <div className="relative px-4 text-left w-full">
+                <Textarea
                   defaultValue={parent?.bio}
                   {...register("bio")}
                   placeholder="Bio"
                 ></Textarea>
               </div>
               <div className="text-left pb-5 flex flex-col justify-center md:flex-row gap-5">
-                <div className="w-full">
+                <div className="w-full px-4">
                   <label htmlFor="" className="font-bold text-black text-lg">
-                    Upload Student Photo (150 X 150){" "}
+                    Upload Student Photo (150 X 150)
                     <span className="text-red-500 mt-5">*</span>
                   </label>
                   <input
                     type="file"
-                    {...register("parentsPhoto")}
                     accept="image/*"
                     className="mt-3 file-input w-full"
+                    onChange={(e: any) => setFile(e.target.files[0])}
                   />
                 </div>
-                <div className="avatar justify-center w-full">
+                <div className="avatar justify-center w-full px-4">
                   <div className="w-24 rounded-full">
                     <img src={parent?.parentsPhoto} alt="" />
-                  </div>
+                    <img src={`${url}`} alt="" />
                 </div>
+                <span>
+                  {imageError && (
+                    <p className="text-red-500">
+                      Image Upload Fail. Please try again
+                    </p>
+                  )}
+                </span>
+                  </div>
               </div>
             </div>
             <div className="form-button">
-              <button className="save-btn pr-3" disabled={loading}>
+              <button
+                className="save-btn pr-3"
+                disabled={loading || imageLoading}
+              >
                 {loading ? "Saving..." : "Save"}
               </button>
             </div>

@@ -147,7 +147,7 @@ const handleDeleteModal= (name:string, id:string )=>{
                     <td>{parents.dateOfBirth}</td>
                     <td>{parents.phone}</td>
                     <td>{parents.email}</td>
-                    <td><label htmlFor="my-modal" className="btn" onClick={()=>handleEdit(parents._id)}>Edit</label> || <label htmlFor="delete-modal" className="btn" onClick={()=>handleDeleteModal(parents?.name, parents?._id)}>Delete</label></td>
+                    <td><label htmlFor="edit-modal" className="btn" onClick={()=>handleEdit(parents._id)}>Edit</label> || <label htmlFor="delete-modal" className="btn" onClick={()=>handleDeleteModal(parents?.name, parents?._id)}>Delete</label></td>
                   </tr>
                 ))}
               </tbody>

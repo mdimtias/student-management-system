@@ -25,6 +25,7 @@ import AllBooks from "../Pages/AdminDashboard/Books/AllBooks/AllBooks";
 import AdminDashboardHome from "../Pages/AdminDashboard/AdminDashboardHome/AdminDashboardHome";
 import AllClasses from "../Pages/AdminDashboard/Class/AllClasses/AllClasses";
 import AddNewClass from "../Pages/AdminDashboard/Class/AddNewClass/AddNewClass";
+import TestImageUpload from "../Pages/TestImageUpload/TestImageUpload";
 export const router = createBrowserRouter([
     {
         path: "/", 
@@ -82,6 +83,10 @@ export const router = createBrowserRouter([
             {
                 path: "/coming-soon",
                 element: <ComingSoon></ComingSoon>
+            },
+            {
+                path: "/test",
+                element: <TestImageUpload></TestImageUpload>
             },
         ]
     },

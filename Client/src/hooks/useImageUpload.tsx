@@ -2,8 +2,8 @@ import { useState } from "react";
 
 const useImageUpload = (preset:string) => {
   const [image, setImage] = useState(null);
-  const [url, setUrl] = useState(null);
-  const [error, setError] = useState(null);
+  const [url, setUrl] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   const uploadImage = async (imageFile:any) => {
@@ -23,12 +23,15 @@ const useImageUpload = (preset:string) => {
         }
       );
       const data = await res.json();
+      const imageUrl = data.secure_url;
       setUrl(data.secure_url);
       setImage(imageFile);
+      setLoading(false);
+      return imageUrl;
     } catch (error:any) {
       setError(error);
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return { image, url, error, loading, uploadImage };
