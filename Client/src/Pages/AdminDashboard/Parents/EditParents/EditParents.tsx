@@ -119,7 +119,7 @@ const EditParents = ({
               </label>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-              <div className="form-input-container">
+              <div className="relative px-4">
                 <Label htmlFor="">
                   Full Name <span className="text-red-500">*</span>
                 </Label>
@@ -135,7 +135,7 @@ const EditParents = ({
                   </span>
                 )}
               </div>
-              <div className="form-input-container">
+              <div className="relative px-4 mb-7">
                 <Label htmlFor="">
                   Gender <span className="text-red-500">*</span>
                 </Label>
@@ -166,7 +166,7 @@ const EditParents = ({
                   </span>
                 )}
               </div>
-              <div className="form-input-container">
+              <div className="relative px-4">
                 <Label htmlFor="">
                   Occupation <span className="text-red-500">*</span>
                 </Label>
@@ -182,7 +182,7 @@ const EditParents = ({
                   </span>
                 )}
               </div>
-              <div className="form-input-container">
+              <div className="relative px-4">
                 <Label htmlFor="">
                   Father Name <span className="text-red-500">*</span>
                 </Label>
@@ -198,7 +198,7 @@ const EditParents = ({
                   </span>
                 )}
               </div>
-              <div className="form-input-container">
+              <div className="relative px-4">
                 <Label htmlFor="">
                   Mother Name <span className="text-red-500">*</span>
                 </Label>
@@ -214,7 +214,7 @@ const EditParents = ({
                   </span>
                 )}
               </div>
-              <div className="form-input-container">
+              <div className="relative px-4">
                 <Label htmlFor="">
                   Date Of Birth <span className="text-red-500">*</span>
                 </Label>
@@ -230,7 +230,7 @@ const EditParents = ({
                   </span>
                 )}
               </div>
-              <div className="form-input-container">
+              <div className="relative px-4 mb-7">
                 <Label htmlFor="">Blood Group</Label>
                 <select
                   className="form-input-style select w-full"
@@ -247,7 +247,7 @@ const EditParents = ({
                   <option value="O-">O-</option>
                 </select>
               </div>
-              <div className="form-input-container">
+              <div className="relative px-4 mb-7">
                 <Label htmlFor="">Religion</Label>
                 <select
                   className="form-input-style select w-full"
@@ -268,7 +268,7 @@ const EditParents = ({
                   </span>
                 )}
               </div>
-              <div className="form-input-container">
+              <div className="relative px-4">
                 <Label htmlFor="">
                   Mobile <span className="text-red-500">*</span>
                 </Label>
@@ -284,7 +284,7 @@ const EditParents = ({
                   </span>
                 )}
               </div>
-              <div className="form-input-container">
+              <div className="relative px-4">
                 <Label htmlFor="">
                   Address<span className="text-red-500">*</span>
                 </Label>
@@ -300,7 +300,7 @@ const EditParents = ({
                   </span>
                 )}
               </div>
-              <div className="form-input-container">
+              <div className="relative px-4">
                 <Label htmlFor="">
                   Email <span className="text-red-500">*</span>
                 </Label>
@@ -317,17 +317,16 @@ const EditParents = ({
                 )}
               </div>
             </div>
-            <div className="">
-              <div className="form-input-container text-left">
-                <Textarea
+            <div className="flex flex-col md:flex-row gap-0 md:gap-4">
+              <div className="relative px-4 text-left">
+              <Textarea
                   defaultValue={parent?.bio}
-                  className="form-input-style student-form-textarea p-3 w-full"
                   {...register("bio")}
                   placeholder="Bio"
                 ></Textarea>
               </div>
               <div className="text-left pb-5 flex flex-col justify-center md:flex-row gap-5">
-                <div>
+                <div className="w-full">
                   <label htmlFor="" className="font-bold text-black text-lg">
                     Upload Student Photo (150 X 150){" "}
                     <span className="text-red-500 mt-5">*</span>
@@ -339,19 +338,16 @@ const EditParents = ({
                     className="mt-3 file-input w-full"
                   />
                 </div>
-                {/* <div className="avatar justify-center">
+                <div className="avatar justify-center w-full">
                   <div className="w-24 rounded-full">
                     <img src={parent?.parentsPhoto} alt="" />
                   </div>
-                </div> */}
+                </div>
               </div>
             </div>
             <div className="form-button">
               <button className="save-btn pr-3" disabled={loading}>
                 {loading ? "Saving..." : "Save"}
-              </button>
-              <button className="reset-btn" onClick={() => reset()}>
-                Reset
               </button>
             </div>
           </form>
