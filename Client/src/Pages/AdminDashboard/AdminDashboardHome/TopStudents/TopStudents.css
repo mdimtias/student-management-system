@@ -1,0 +1,4 @@
+.top-student-list :nth-child(2) {
+    text-align: left;
+    padding-left: 15px !important;
+}

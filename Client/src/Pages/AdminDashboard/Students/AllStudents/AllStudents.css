@@ -1,6 +1,6 @@
 .table :where(td){
     padding: 4px !important;
-    text-align: ce;
+    text-align: center;
 }
 .table :where(th){
     padding: 15px !important;

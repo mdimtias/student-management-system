@@ -1,5 +1,5 @@
 import React from "react";
-import { AiFillDashboard, AiOutlineClose, AiTwotoneNotification } from "react-icons/ai";
+import { AiFillDashboard, AiFillHome, AiOutlineClose, AiTwotoneNotification } from "react-icons/ai";
 import { HiMenu, HiUserGroup } from "react-icons/hi";
 import { ImManWoman } from "react-icons/im"; 
 import { CgNotes } from "react-icons/cg"; 
@@ -130,6 +130,7 @@ const AdminDashboard = () => {
           <MenuItem icon={<AiTwotoneNotification />}>Notice</MenuItem>
           <MenuItem icon={<RiMessage2Fill />}>Message</MenuItem>
           <MenuItem icon={<RiMapPin2Fill />}> Map</MenuItem>
+          <MenuItem icon={<AiFillHome />}  component={<Link to="./../"/>}> Home</MenuItem>
         </Menu>
       </Sidebar>
       <main className="bg-[#F0F1F3] w-full overflow-hidden">

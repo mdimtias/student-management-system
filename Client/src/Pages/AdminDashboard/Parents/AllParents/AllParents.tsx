@@ -14,8 +14,8 @@ const AllParents = () => {
     const [id, setId] = useState("")
     const [editParentModal, setEditParentModal] = useState(false)
     const [deleteModal, setDeleteModal] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [name, setName] = useState("")
-    const [loading, setLoading] = useState(false);
     const [query, setQuery] = useState({
       name: "",
       email: "",
@@ -33,20 +33,22 @@ const AllParents = () => {
         .then((res) => res.json())
         .then((data)=>data.data)
   })
-
+console.log(parents)
+  // Open Edit Modal
   const handleEdit = (id:string)=>{
     setId(id);
     setEditParentModal(true)
   }
-  // handleDelete(parents.name, parents._id), 
+  
+  // Delete Parent
 const handleDeleteModal= (name:string, id:string )=>{
   setDeleteModal(true);
   setId(id);
   setName(name)
 }
-  const handleDelete = (name:string, id:string)=>{
+  const handleDelete = (id:string)=>{
     setDeleteModal(true);
-    setName(name);
+    setLoading(true)
     fetch(`${process.env.REACT_APP_API_URL}/parents/${id}`, {
       method: "DELETE",
       headers: {
@@ -56,23 +58,23 @@ const handleDeleteModal= (name:string, id:string )=>{
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.data.acknowledged) {
-          toast.success("Delete Parent Successful");
+          toast.success("Delete Parent Successful!");
           setLoading(false);
-          setEditParentModal(false);
+          setDeleteModal(false);
           refetch();
         }
         if (data.success === false) {
-          toast.error("Delete Parent Fail");
+          toast.error("Delete Parent Fail!");
           setLoading(false);
-          setEditParentModal(false);
+          setDeleteModal(false);
         }
       })
       .catch((error) => {
-        toast.error("Delete Parent Fail");
+        toast.error("Delete Parent Fail!");
         setLoading(false);
-        setEditParentModal(false);
+        setDeleteModal(false);
+        console.log(error)
       });
   };
   
@@ -81,7 +83,7 @@ const handleDeleteModal= (name:string, id:string )=>{
       {editParentModal && <EditParents id={id} setEditParentModal={setEditParentModal} refetch={refetch}></EditParents>}
         <div className="all-students-section py-5 px-7">
        <DashboardTopHeader name="Parents" title="All Parents"></DashboardTopHeader>
-        <div>
+       <div>
           <div className="bg-white p-5">
             <div className="search-all-student pb-5">
               <h2 className="font-bold text-2xl pb-5">All Parents</h2>
@@ -147,7 +149,7 @@ const handleDeleteModal= (name:string, id:string )=>{
                     <td>{parents.dateOfBirth}</td>
                     <td>{parents.phone}</td>
                     <td>{parents.email}</td>
-                    <td><label htmlFor="edit-modal" className="btn" onClick={()=>handleEdit(parents._id)}>Edit</label> || <label htmlFor="delete-modal" className="btn" onClick={()=>handleDeleteModal(parents?.name, parents?._id)}>Delete</label></td>
+                    <td><label htmlFor="edit-modal" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={()=>handleEdit(parents._id)}>Edit</label>  <label htmlFor="delete-modal" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={()=>handleDeleteModal(parents?.name, parents?._id)}>Delete</label></td>
                   </tr>
                 ))}
               </tbody>
@@ -159,7 +161,7 @@ const handleDeleteModal= (name:string, id:string )=>{
           </div>
         </div>
 
-{deleteModal && <DeleteModal name={name} id={id} handleDelete={handleDelete}></DeleteModal>}
+{deleteModal && <DeleteModal name={name} id={id} handleDelete={handleDelete} loading={loading}></DeleteModal>}
 
       </div>
       </>

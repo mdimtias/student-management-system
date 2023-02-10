@@ -1,19 +1,26 @@
 import React, { useState } from 'react';
 import { useTitle } from '../../../../hooks/useTitle';
 import male from "./../../../../assets/Students/male.png";
-import female from "./../../../../assets/Students/female.png";
 import DashboardTopHeader from '../../DashboardTopHeader/DashboardTopHeader';
 import { useQuery } from '@tanstack/react-query';
 import Loader from '../../../../SharedPage/Loader/Loader';
+import DeleteModal from '../../../../SharedPage/DeleteModal/DeleteModal';
+import EditBooks from '../EditBooks/EditBooks';
+import { toast } from 'react-hot-toast';
 
 const AllBooks = () => {
     useTitle("All Books")
+    const [editBookModal, setEditBookModal] = useState(false)
+    const [id, setId] = useState("")
+    const [deleteModal, setDeleteModal] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [name, setName] = useState("")
     const [query, setQuery] = useState({
       id: "",
       name: "",
       writer: ""
     })
-    const { isLoading, error, data: books=[] } = useQuery({
+    const { isLoading, error, refetch, data: books=[] } = useQuery({
       queryKey: ['books'],
       queryFn: async () =>
         await fetch(`${process.env.REACT_APP_API_URL}/books`, {
@@ -25,7 +32,53 @@ const AllBooks = () => {
         .then((res) => res.json())
         .then((data)=>data.data)
   })
+
+   // Edit Modal Open
+   const handleEdit = (id:string)=>{
+    setId(id);
+    setEditBookModal(true)
+  }
+  
+  // Delete Book
+const handleDeleteModal= (name:string, id:string )=>{
+  setDeleteModal(true);
+  setId(id);
+  setName(name)
+}
+  const handleDelete = (id:string)=>{
+    setDeleteModal(true);
+    setLoading(true)
+    fetch(`${process.env.REACT_APP_API_URL}/books/${id}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+        authorization: `${localStorage.getItem("token")}`,
+      }
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.data.acknowledged) {
+          toast.success("Delete Book Successful!");
+          setLoading(false);
+          setDeleteModal(false);
+          refetch();
+        }
+        if (data.success === false) {
+          toast.error("Delete Book Fail!");
+          setLoading(false);
+          setDeleteModal(false);
+        }
+      })
+      .catch((error) => {
+        toast.error("Delete Book Fail!");
+        setLoading(false);
+        setDeleteModal(false);
+        console.log(error)
+      });
+  };
     return (
+        <>
+         {editBookModal && <EditBooks id={id} setEditBookModal={setEditBookModal} refetch={refetch}></EditBooks>}
         <div className="all-students-section py-5 px-7">
       <DashboardTopHeader name="Books" title="All Books"></DashboardTopHeader>
         <div>
@@ -74,11 +127,7 @@ const AllBooks = () => {
                         <div className="w-12 rounded-full">
                           <img
                             src={
-                              book?.bookPhoto
-                                ? book.bookPhoto
-                                : book.gender === "Male"
-                                ? male
-                                : female
+                              book?.bookCoverPhoto ? book?.bookCoverPhoto : male
                             }
                             alt={book.name}
                           />
@@ -92,7 +141,7 @@ const AllBooks = () => {
                     <td>{book.idNumber}</td>
                     <td>{book.publishedDate}</td>
                     <td>{book.uploadDate}</td>
-                    <td>Edit || Delete</td>
+                    <td><label htmlFor="edit-modal" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={()=>handleEdit(book._id)}>Edit</label>  <label htmlFor="delete-modal" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={()=>handleDeleteModal(book?.name, book?._id)}>Delete</label></td>
                   </tr>
                 ))}
               </tbody>
@@ -102,8 +151,10 @@ const AllBooks = () => {
             </div>
        
           </div>
+          {deleteModal && <DeleteModal name={name} id={id} handleDelete={handleDelete} loading={loading}></DeleteModal>}
         </div>
       </div>
+        </>
     );
 };
 

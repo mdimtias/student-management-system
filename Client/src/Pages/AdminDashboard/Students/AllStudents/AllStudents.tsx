@@ -6,15 +6,23 @@ import { useTitle } from "../../../../hooks/useTitle";
 import DashboardTopHeader from "../../DashboardTopHeader/DashboardTopHeader";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../../../SharedPage/Loader/Loader";
+import { toast } from "react-hot-toast";
+import DeleteModal from "../../../../SharedPage/DeleteModal/DeleteModal";
+import EditStudents from "../EditStudents/EditStudents";
 const AllStudents = () => {
   useTitle("All Students")
+  const [id, setId] = useState("")
+  const [editStudentModal, setEditStudentModal] = useState(false)
+  const [deleteModal, setDeleteModal] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [name, setName] = useState("")
   const [query, setQuery] = useState({
     name: "",
     roll: "",
     class: ""
   })
 
-  const { isLoading, error, data: students=[] } = useQuery({
+  const { isLoading, error, refetch, data: students=[] } = useQuery({
       queryKey: ['students'],
       queryFn: async () =>
         await fetch(`${process.env.REACT_APP_API_URL}/students`, {
@@ -27,7 +35,53 @@ const AllStudents = () => {
         .then((data)=>data.data)
   })
 
+  // Open Edit Modal
+  const handleEdit = (id:string)=>{
+    setId(id);
+    setEditStudentModal(true)
+  }
+  
+  // Delete Parent
+const handleDeleteModal= (name:string, id:string )=>{
+  setDeleteModal(true);
+  setId(id);
+  setName(name)
+}
+  const handleDelete = (id:string)=>{
+    setDeleteModal(true);
+    setLoading(true)
+    fetch(`${process.env.REACT_APP_API_URL}/students/${id}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+        authorization: `${localStorage.getItem("token")}`,
+      }
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.data.acknowledged) {
+          toast.success("Delete Student Successful!");
+          setLoading(false);
+          setDeleteModal(false);
+          refetch();
+        }
+        if (data.success === false) {
+          toast.error("Delete Student Fail!");
+          setLoading(false);
+          setDeleteModal(false);
+        }
+      })
+      .catch((error) => {
+        toast.error("Delete Student Fail!");
+        setLoading(false);
+        setDeleteModal(false);
+        console.log(error)
+      });
+  };
+  
   return (
+    <>
+     {editStudentModal && <EditStudents id={id} setEditParentModal={setEditStudentModal} refetch={refetch}></EditStudents>}
     <div className="all-students-section py-5 px-7">
       <DashboardTopHeader name="Students" title="All Students"></DashboardTopHeader>
       <div>
@@ -99,7 +153,7 @@ const AllStudents = () => {
                   <td>{student.dateOfBirth}</td>
                   <td>{student.phone}</td>
                   <td>{student.email}</td>
-                  <td>Edit || Delete</td>
+                  <td><label htmlFor="edit-modal" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={()=>handleEdit(student._id)}>Edit</label>  <label htmlFor="delete-modal" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={()=>handleDeleteModal(student?.name, student?._id)}>Delete</label></td>
                 </tr>
               ))}
             </tbody>
@@ -107,10 +161,11 @@ const AllStudents = () => {
           {isLoading && <Loader></Loader>}
           <>{error && <p className="font-bold text-lg pt-5">Something went wrong</p>}</>
           </div>
-     
+     </div>
         </div>
+        {deleteModal && <DeleteModal name={name} id={id} handleDelete={handleDelete} loading={loading}></DeleteModal>}
       </div>
-    </div>
+    </>
   );
 };
 

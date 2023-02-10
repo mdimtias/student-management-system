@@ -1,8 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { useTitle } from "../../../../hooks/useTitle";
 import { Input } from "../../../StyleComponent/Input.styled";
 import { Label } from "../../../StyleComponent/Label.styled";
 import { Textarea } from "../../../StyleComponent/Textarea.styled";
@@ -20,7 +19,6 @@ const EditParents = ({
   setEditParentModal,
   refetch: parentsRefetch,
 }: EditProps) => {
-  useTitle("Add Parents");
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<File | null>();
   const {
@@ -31,7 +29,6 @@ const EditParents = ({
   } = useForm();
 
   const {
-    url,
     error: imageError,
     loading: imageLoading,
     uploadImage,
@@ -64,7 +61,6 @@ const EditParents = ({
     if (file && file.name) {
       const imageUploadServer = await uploadImage(file);
       data.parentsPhoto = imageUploadServer;
-      console.log(imageUploadServer);
     } else {
       data.parentsPhoto = parent.parentPhoto;
     }
@@ -79,7 +75,6 @@ const EditParents = ({
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data.data.acknowledged) {
           toast.success("Update Parent Successful");
           reset();
@@ -109,16 +104,18 @@ const EditParents = ({
       <input type="checkbox" id="edit-modal" className="modal-toggle" />
       <div className="modal px-5 md:px-24 lg:px-64 overflow-y-auto max-h-full">
         <div className="modal-box w-11/12 max-w-5xl">
-          <form
-            action=""
-            onSubmit={handleSubmit(onSubmit)}
-            className="px-5 pt-5 pb-5 bg-white"
-          >
+          
             <div className="absolute top-2 right-2 z-10">
               <label htmlFor="edit-modal" className="btn rounded-full">
                 <ImCross></ImCross>
               </label>
             </div>
+        <>{error && <p>Something Went Wrong</p>}</>
+        {isLoading ? <Loader></Loader> : <form
+            action=""
+            onSubmit={handleSubmit(onSubmit)}
+            className="px-5 pt-5 pb-5 bg-white"
+          >
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
               <div className="relative px-4">
                 <Label htmlFor="">
@@ -342,16 +339,16 @@ const EditParents = ({
                 <div className="avatar justify-center w-full px-4">
                   <div className="w-24 rounded-full">
                     <img src={parent?.parentsPhoto} alt="" />
-                    <img src={`${url}`} alt="" />
+                  </div>
                 </div>
-                <span>
+
+                <div>
                   {imageError && (
                     <p className="text-red-500">
                       Image Upload Fail. Please try again
                     </p>
                   )}
-                </span>
-                  </div>
+                </div>
               </div>
             </div>
             <div className="form-button">
@@ -362,7 +359,8 @@ const EditParents = ({
                 {loading ? "Saving..." : "Save"}
               </button>
             </div>
-          </form>
+          </form>}
+          
         </div>
       </div>
     </div>

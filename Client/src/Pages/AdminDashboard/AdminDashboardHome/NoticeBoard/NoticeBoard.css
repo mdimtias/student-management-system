@@ -1,0 +1,13 @@
+.notice-board-section ::-webkit-scrollbar {
+  width: 10px;
+  background: #f0f1f2;
+  border-radius: 30px;
+}
+.notice-board-section ::-webkit-scrollbar-track {
+  border-radius: 30px;
+  background: #f0f1f2;
+}
+.notice-board-section ::-webkit-scrollbar-thumb {
+  border-radius: 30px;
+  background: #3751fe;
+}

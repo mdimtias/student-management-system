@@ -3,15 +3,24 @@ import { useTitle } from "../../../../hooks/useTitle";
 import DashboardTopHeader from "../../DashboardTopHeader/DashboardTopHeader";
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../../../../SharedPage/Loader/Loader";
+import DeleteModal from "../../../../SharedPage/DeleteModal/DeleteModal";
+import { toast } from "react-hot-toast";
+import EditNewClass from "../EditNewClass/EditNewClass";
+import "./AllClasses.css";
 const AllClasses = () => {
   useTitle("All classes")
+  const [editClassModal, setEditClassModal] = useState(false)
+  const [id, setId] = useState("")
+  const [deleteModal, setDeleteModal] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [name, setName] = useState("")
   const [query, setQuery] = useState({
     name: "",
     email: "",
     class: ""
   })
 
-  const { isLoading, error, data: classes=[] } = useQuery({
+  const { isLoading, error, refetch, data: classes=[] } = useQuery({
       queryKey: ['classes'],
       queryFn: async () =>
         await fetch(`${process.env.REACT_APP_API_URL}/classes`, {
@@ -24,7 +33,52 @@ const AllClasses = () => {
         .then((data)=>data.data)
   })
 
+   // Edit Modal Open
+   const handleEdit = (id:string)=>{
+    setId(id);
+    setEditClassModal(true)
+  }
+  
+  // Delete Classes
+const handleDeleteModal= (name:string, id:string )=>{
+  setDeleteModal(true);
+  setId(id);
+  setName(name)
+}
+  const handleDelete = (id:string)=>{
+    setDeleteModal(true);
+    setLoading(true)
+    fetch(`${process.env.REACT_APP_API_URL}/classes/${id}`, {
+      method: "DELETE",
+      headers: {
+        "content-type": "application/json",
+        authorization: `${localStorage.getItem("token")}`,
+      }
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.data.acknowledged) {
+          toast.success("Delete Classes Successful!");
+          setLoading(false);
+          setDeleteModal(false);
+          refetch();
+        }
+        if (data.success === false) {
+          toast.error("Delete Classes Fail!");
+          setLoading(false);
+          setDeleteModal(false);
+        }
+      })
+      .catch((error) => {
+        toast.error("Delete Classes Fail!");
+        setLoading(false);
+        setDeleteModal(false);
+        console.log(error)
+      });
+  };
   return (
+   <>
+    {editClassModal && <EditNewClass id={id} setEditClassModal={setEditClassModal} refetch={refetch}></EditNewClass>}
     <div className="all-classes-section py-5 px-7">
       <DashboardTopHeader name="Classes" title="All Classes"></DashboardTopHeader>
       <div>
@@ -69,7 +123,7 @@ const AllClasses = () => {
               .filter((classItem: any)=>classItem?.class?.toLowerCase().includes(query.class))
               .map((classItem: any, i: any) => (
                 <tr key={classItem._id} className={`${i % 2 ? "" : "active"}`}>
-                  <td>{classItem.id}</td>
+                  <td className="pt-5">{classItem.id}</td>
                   <td>{classItem.name}</td>
                   <td>{classItem.gender}</td>
                   <td>{classItem.class}</td>
@@ -79,7 +133,7 @@ const AllClasses = () => {
                   <td>{classItem.time}</td>
                   <td>{classItem.phone}</td>
                   <td>{classItem.email}</td>
-                  <td>Edit || Delete</td>
+                  <td><label htmlFor="edit-modal" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={()=>handleEdit(classItem._id)}>Edit</label>  <label htmlFor="delete-modal" className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={()=>handleDeleteModal(classItem?.name, classItem?._id)}>Delete</label></td>
                 </tr>
               ))}
             </tbody>
@@ -89,8 +143,10 @@ const AllClasses = () => {
           </div>
      
         </div>
+        {deleteModal && <DeleteModal name={name} id={id} handleDelete={handleDelete} loading={loading}></DeleteModal>}
       </div>
     </div>
+   </>
   );
 };
 

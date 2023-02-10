@@ -1,29 +1,36 @@
 import React from "react";
 type deleteUserProp = {
-    name: string,
-    handleDelete: any,
-    id: string
-}
-const DeleteModal = ({name, id, handleDelete}: deleteUserProp) => {
+  name: string;
+  handleDelete: any;
+  id: string;
+  loading: boolean;
+};
+const DeleteModal = ({ name, id, handleDelete, loading }: deleteUserProp) => {
   return (
     <div>
       <input type="checkbox" id="delete-modal" className="modal-toggle" />
       <div className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">Are you sure you want to delete permanently {name}?</h3>
+          <h3 className="font-bold text-lg">
+            Are you sure you want to delete permanently {name}?
+          </h3>
           <p className="py-4">
-          This item will be deleted immediately. You can't undo this action.
+            This item will be deleted immediately. You can't undo this action.
           </p>
           <div className="modal-action">
-            <label htmlFor="delete-modal" className="btn bg-[#27ae60] text-white rounded-full">
-               Cancel
-              </label>
-            <label htmlFor="delete-modal" className="btn rounded-full bg-white text-[#0000A9] hover:bg-[#0000A9] hover:text-white" onClick={()=>handleDelete(name, id)}>
-              Delete
+            <label
+              htmlFor="delete-modal"
+              className="h-9 flex items-center bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer"
+            >
+              Cancel
             </label>
-            <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer">
-  Delete
-</button>
+            <label
+              
+              className="h-9 flex items-center bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded hover:cursor-pointer"
+              onClick={() => handleDelete(id)}
+            >
+              {loading ? "Deleting..." : "Delete"}
+            </label>
           </div>
         </div>
       </div>
