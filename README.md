@@ -63,7 +63,27 @@ npm start
 
 * Log out when finished using the system.
 
+## Contributing
+Contributions are welcome! If you would like to contribute to the Student Management System project, please follow these steps:
 
+1. Fork the repository. 
+2. Create a new branch for your feature or bug fix:
+
+```
+git checkout -b my-feature
+```
+3. Make your changes and commit them:
+```
+git commit -m "Add my feature"
+```
+4. Push to the branch:
+```
+git push origin my-feature
+```
+5. Submit a pull request outlining the changes you have made.
+
+## License
+The Student Management System project is licensed under the MIT License. You are free to use, modify, and distribute this software.
 
 
 
